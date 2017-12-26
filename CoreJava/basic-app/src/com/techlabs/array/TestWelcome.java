@@ -6,8 +6,9 @@ public class TestWelcome {
 
 		if (names.length == 0)
 			System.out.println("Pass some names");
-		else
-			for(String i:names)
-				System.out.println(i);
+		else {
+			for (String n : names)
+				System.out.println(n);
+		}
 	}
 }
