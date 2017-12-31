@@ -1,6 +1,7 @@
 package com.techlabs.serialize.test;
 
 import com.techlabs.serialize.*;
+
 import java.io.*;
 
 public class SerializeTest {
@@ -14,6 +15,14 @@ public class SerializeTest {
 			FileOutputStream fs = new FileOutputStream("rectFile.ser");
 			ObjectOutputStream os = new ObjectOutputStream(fs);
 			os.writeObject(rect);
+			os.close();
+			
+			FileInputStream is=new FileInputStream("rectFile.ser");
+			ObjectInputStream ois=new ObjectInputStream(is);
+			Rectangle rectDeserialized	=(Rectangle)ois.readObject();
+			
+			System.out.println(rectDeserialized.getHeight());
+			System.out.println(rectDeserialized.getWidth());
 		} catch (Exception e) {
 		}
 	}
