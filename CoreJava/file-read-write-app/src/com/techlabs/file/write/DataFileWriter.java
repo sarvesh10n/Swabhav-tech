@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileWrite {
+public class DataFileWriter {
 
 	public void writeFile(String fileName) {
 		try {

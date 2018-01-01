@@ -3,7 +3,7 @@ import com.techlabs.custom.exception.*;
 
 public class CustomExceptionTest {
 
-	static void validate(int age) throws InvalidAgeException {
+	static void validate(int age){
 		if (age < 18)
 			throw new InvalidAgeException("not valid");
 		else
@@ -11,11 +11,9 @@ public class CustomExceptionTest {
 	}
 
 	public static void main(String args[]) {
-		try {
+		
 			validate(13);
-		} catch (Exception m) {
-			System.out.println("Exception occured: " + m);
-		}
+		
 
 	}
 }

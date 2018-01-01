@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class FileRead {
+public class DataFileReader {
 
 	public void readFile(String fileName)
 	{
