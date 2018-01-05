@@ -1,5 +1,7 @@
 package com.techlabs.resume.test;
 
+import com.techlabs.resumee.ResumeBuilder;
+
 public class ResumeTest {
 
 	public static void main(String details[]) {

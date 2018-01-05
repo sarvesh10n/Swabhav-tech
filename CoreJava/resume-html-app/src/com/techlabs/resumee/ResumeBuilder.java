@@ -1,4 +1,4 @@
-package com.techlabs.resume.test;
+package com.techlabs.resumee;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,7 +38,7 @@ public class ResumeBuilder {
 			fileContent = fileContent.replace("$contact", contact);
 			fileContent = fileContent.replace("$hobby", hobby);
 			fileContent = fileContent.replace("$qualification", qualification);
-			FileWriter fw=new FileWriter("resume.html");
+			FileWriter fw=new FileWriter("Data/resume.html");
 			fw.write(fileContent);
 			fw.close();
 			reader.close();
