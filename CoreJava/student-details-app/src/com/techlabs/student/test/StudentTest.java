@@ -3,11 +3,6 @@ package com.techlabs.student.test;
 import java.io.*;
 import java.util.ArrayList;
 
-
-
-
-
-
 import com.techlabs.student.Student;
 
 public class StudentTest implements Serializable {
@@ -34,7 +29,7 @@ public class StudentTest implements Serializable {
 		}
 	}
 
-	public static void performAction(int choice) throws IOException {
+	private static void performAction(int choice) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		if (choice == 1) {
@@ -62,7 +57,7 @@ public class StudentTest implements Serializable {
 
 	}
 
-	public static void addStudentToList(Student student) {
+	private static void addStudentToList(Student student) {
 		studentList.add(student);
 		saveData();
 	}
@@ -78,13 +73,13 @@ public class StudentTest implements Serializable {
 			System.out.println("file not found");
 		}
 	}
-	
-	private static void fetchData()
-	{
-		try{
-		FileInputStream is=new FileInputStream("Data/student_data.ser");
-		ObjectInputStream ois=new ObjectInputStream(is);
-		studentList	=(ArrayList<Student>)ois.readObject();}
-		catch(Exception e){}
+
+	private static void fetchData() {
+		try {
+			FileInputStream is = new FileInputStream("Data/student_data.ser");
+			ObjectInputStream ois = new ObjectInputStream(is);
+			studentList = (ArrayList<Student>) ois.readObject();
+		} catch (Exception e) {
+		}
 	}
 }
