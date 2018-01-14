@@ -7,7 +7,7 @@ public class Player {
 	private int age;
 
 	public Player(int id, String name) {
-		this(id,name,18);
+		this(id, name, 18);
 	}
 
 	public Player(int id, String name, int age) {
@@ -29,32 +29,26 @@ public class Player {
 	}
 
 	public Player whoIsElder(Player player) {
-		if (this.age > player.age)
-			return this;
-		else
-			return player;
+		return (this.age > player.age)?this:player;
+			
 	}
 
 	public String getName() {
 		return name;
 	}
-	
+
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		System.out.println(age);
 		System.out.println(name);
 		System.out.println(id);
 		return "";
 	}
-	
+
 	@Override
-	public boolean equals(Object player)
-	{
-		if(this.id==((Player)player).id)
-			return true;
-		else 
-			return false; 
+	public boolean equals(Object player) {
+		return (this.id == ((Player) player).id);
+
 	}
-	
+
 }
