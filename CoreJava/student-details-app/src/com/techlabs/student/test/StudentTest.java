@@ -1,85 +1,49 @@
 package com.techlabs.student.test;
 
+import com.techlabs.resume.builder.GenerateResumes;
+import com.techlabs.student.functions.*;
+
 import java.io.*;
-import java.util.ArrayList;
 
-import com.techlabs.student.Student;
+import com.techlabs.student.functions.AddStudent;
+import com.techlabs.student.functions.DisplayList;
 
-public class StudentTest implements Serializable {
-
-	static ArrayList<Student> studentList = new ArrayList<Student>();
+public class StudentTest {
 
 	public static void main(String args[]) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		int choice;
 		// For initializing ArrayList with previous data
-		fetchData();
+		FetchData.fetchData();
 		boolean flag = true;
 		while (flag) {
 			System.out.println("1:Display student details");
 			System.out.println("2:Add student");
 			System.out.println("3:Count number of student");
-			System.out.println("4:Exit");
+			System.out.println("4:Build student resumes");
+			System.out.println("5:Exit");
 			choice = Integer.parseInt(br.readLine());
-			if (choice == 4)
+			if (choice == 5)
 				flag = false;
 			else
 				performAction(choice);
 		}
 	}
 
-	private static void performAction(int choice) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
+	private static void performAction(int choice) {
 		if (choice == 1) {
-			int i = 1;
-			for (Student student : studentList) {
-				System.out.println(i++ + ")");
-				student.displayStudentDetails();
-				System.out.println();
-			}
+			new DisplayList().displayStudentList();
 		}
 
 		else if (choice == 2) {
-			Student student = new Student();
-			System.out.println("Enter first name");
-			student.setFirstName(br.readLine());
-			System.out.println("Enter last name");
-			student.setLastName(br.readLine());
-			System.out.println("Enter Address");
-			student.setAddress(br.readLine());
-			addStudentToList(student);
+			new AddStudent().addStudent();
 		}
-
-		else if (choice == 3)
-			System.out.println(studentList.size());
-
-	}
-
-	private static void addStudentToList(Student student) {
-		studentList.add(student);
-		saveData();
-	}
-
-	private static void saveData() {
-		try {
-			FileOutputStream fs = new FileOutputStream("Data/student_data.ser");
-			ObjectOutputStream os = new ObjectOutputStream(fs);
-			os.writeObject(studentList);
+		else if (choice == 3) {
+			System.out.println(StudentList.getCountOfStudent());
 		}
-
-		catch (IOException e) {
-			System.out.println("file not found");
-		}
-	}
-
-	private static void fetchData() {
-		try {
-			FileInputStream is = new FileInputStream("Data/student_data.ser");
-			ObjectInputStream ois = new ObjectInputStream(is);
-			studentList = (ArrayList<Student>) ois.readObject();
-		} catch (Exception e) {
+		else if (choice == 4) {
+			new GenerateResumes().generateResumes();
 		}
 	}
 }
