@@ -24,9 +24,9 @@ public class TestSet {
 		System.out.println(studentSet);
 
 		// update
-		stud2 = new Student("abc", "xyz", "lmn");
-		studentSet.remove(  );
-		//studentSet.add(stud2);
+		Student stud2Updated = new Student("abc", "xyz", "lmn");
+		studentSet.remove(stud2);
+		studentSet.add(stud2Updated);
 		System.out.println(studentSet);
 	}
 }

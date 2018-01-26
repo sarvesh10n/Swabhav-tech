@@ -7,15 +7,21 @@ import java.io.*;
 
 import com.techlabs.student.functions.AddStudent;
 import com.techlabs.student.functions.DisplayList;
+import com.techlabs.student.functions.FetchData;
 
 public class StudentTest {
+	
+	private static final int GENERATE_RESUME = 4;
+	private static final int COUNT_STUDENT = 3;
+	private static final int ADD_STUDENT = 2;
+	private static final int DISPLAY_STUDENT_DETAILS = 1;
 
 	public static void main(String args[]) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		int choice;
-		// For initializing ArrayList with previous data
 		FetchData.fetchData();
+		int choice;
+		
 		boolean flag = true;
 		while (flag) {
 			System.out.println("1:Display student details");
@@ -32,17 +38,17 @@ public class StudentTest {
 	}
 
 	private static void performAction(int choice) {
-		if (choice == 1) {
+		if (choice == DISPLAY_STUDENT_DETAILS) {
 			new DisplayList().displayStudentList();
 		}
 
-		else if (choice == 2) {
+		else if (choice == ADD_STUDENT) {
 			new AddStudent().addStudent();
 		}
-		else if (choice == 3) {
+		else if (choice == COUNT_STUDENT) {
 			System.out.println(StudentList.getCountOfStudent());
 		}
-		else if (choice == 4) {
+		else if (choice == GENERATE_RESUME) {
 			new GenerateResumes().generateResumes();
 		}
 	}

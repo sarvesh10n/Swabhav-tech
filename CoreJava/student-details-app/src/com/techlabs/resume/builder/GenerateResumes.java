@@ -13,11 +13,13 @@ public class GenerateResumes {
 
 	private String name;
 	private String address;
+	private int rollNo;
 	public void generateResumes()
 	{	
 		for (Student student : StudentList.studentList) {
 			name=student.getFirstName()+" "+student.getLastName();
 			address=student.getAddress();
+			rollNo=student.getRollNo();
 			createResume();
 		}
 	}
@@ -35,6 +37,7 @@ public class GenerateResumes {
 			
 			fileContent = fileContent.replace("$name", name);
 			fileContent = fileContent.replace("$address", address);
+			fileContent = fileContent.replace("$roll_no",""+rollNo);
 			FileWriter fw=new FileWriter("Data/Resumes/"+name+"Resume.html");
 			fw.write(fileContent);
 			fw.close();

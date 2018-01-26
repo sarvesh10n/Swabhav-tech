@@ -9,11 +9,11 @@ public class ObjectCreationTest {
 
 	public static void main(String args[]) {
 
-		objectCreation1();
+		//objectCreation1();
 
 		objectCreation2();
 
-		objectCreation3();
+		//objectCreation3();
 	}
 
 	private static void objectCreation1() {
@@ -35,10 +35,13 @@ public class ObjectCreationTest {
 	private static void objectCreation2() {
 		Student student = new Student();
 		try {
+			student.setFirstName("Sarvesh");
+			student.setLastName("Nerurkar");
+			student.setAddress("Bhandup");
 			Student studentClone = (Student) student.clone();
-			studentClone.setAddress("Bhandup");
-			studentClone.setFirstName("Sarvesh");
-			studentClone.setLastName("Nerurkar");
+			System.out.println(student.hashCode());
+			System.out.println(studentClone.hashCode());
+			
 			studentClone.displayStudentDetails();
 		} catch (CloneNotSupportedException e) {
 

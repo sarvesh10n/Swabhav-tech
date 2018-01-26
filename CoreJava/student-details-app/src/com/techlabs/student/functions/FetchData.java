@@ -17,4 +17,10 @@ public class FetchData {
 		} catch (Exception e) {
 		}
 	}
+	
+	public static int fetchRollNo()
+	{
+		int size=StudentList.studentList.size();
+		return size;
+	}
 }

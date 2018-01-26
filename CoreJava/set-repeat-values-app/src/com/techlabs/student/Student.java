@@ -21,10 +21,8 @@ public class Student {
 	public boolean equals(Object student)
 	{
 		Student s=(Student)student;
-		if((getFirstName().equals(s.getFirstName())&&(getLastName().equals(s.getLastName()))&&getAddress().equals(s.getAddress())))
-				return true;
-		else
-			return false;
+		return((getFirstName().equals(s.getFirstName())&&(getLastName().equals(s.getLastName()))&&getAddress().equals(s.getAddress())));
+				
 	}
 
 	@Override
