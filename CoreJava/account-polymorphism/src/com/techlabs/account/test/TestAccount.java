@@ -6,7 +6,7 @@ public class TestAccount {
 	public static void main(String args[])
 	{
 		CurrentAccount currentAccount=new CurrentAccount("Sarvesh",2000);
-		SavingAccount savingAccount=new SavingAccount("santosh", 5000);
+		SavingAccount savingAccount=new SavingAccount("atharv", 5000);
 		
 		printDetails(currentAccount);
 		printDetails(savingAccount);
@@ -14,7 +14,7 @@ public class TestAccount {
 		currentAccount.deposit(500);
 		savingAccount.deposit(1000);
 		currentAccount.withdraw(2500);
-		savingAccount.withdraw(2000);
+		savingAccount.withdraw(40000);
 		
 		System.out.println("After withdrawal");
 		

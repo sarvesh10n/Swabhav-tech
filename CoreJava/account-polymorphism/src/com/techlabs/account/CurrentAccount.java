@@ -18,7 +18,10 @@ public class CurrentAccount extends Account {
 			balance = balance - amount;
 			trackWithdrawals();
 		} else
-			throw new InsufficientBalanceException("Insufficient balance");
+			try{
+			throw new InsufficientBalanceException(this,amount);}
+		catch(Exception e)
+		{System.out.println(e);}
 	}
 
 }
