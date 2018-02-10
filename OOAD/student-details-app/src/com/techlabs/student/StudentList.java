@@ -1,21 +1,14 @@
-package com.techlabs.student.functions;
+package com.techlabs.student;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import com.techlabs.student.Student;
 
 public class StudentList implements Serializable {
 
 	public static ArrayList<Student> studentList = new ArrayList<Student>();
 
-	public static int getCountOfStudent() {
-		return studentList.size();
-	}
-
-	public void addStudent(Student student) {
+	public void studentAdd(Student student) {
 		studentList.add(student);
 	}
-	
-	
+
 }

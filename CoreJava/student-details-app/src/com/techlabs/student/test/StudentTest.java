@@ -1,6 +1,7 @@
 package com.techlabs.student.test;
 
 import com.techlabs.resume.builder.GenerateResumes;
+import com.techlabs.student.Student;
 import com.techlabs.student.functions.*;
 
 import java.io.*;
@@ -10,7 +11,7 @@ import com.techlabs.student.functions.DisplayList;
 import com.techlabs.student.functions.FetchData;
 
 public class StudentTest {
-	
+
 	private static final int GENERATE_RESUME = 4;
 	private static final int COUNT_STUDENT = 3;
 	private static final int ADD_STUDENT = 2;
@@ -21,7 +22,7 @@ public class StudentTest {
 
 		FetchData.fetchData();
 		int choice;
-		
+		StudentList studentList = new StudentList();
 		boolean flag = true;
 		while (flag) {
 			System.out.println("1:Display student details");
@@ -32,24 +33,34 @@ public class StudentTest {
 			choice = Integer.parseInt(br.readLine());
 			if (choice == 5)
 				flag = false;
-			else
-				performAction(choice);
-		}
-	}
+			else {
+				if (choice == DISPLAY_STUDENT_DETAILS) {
+					displayStudentList();
+				}
 
-	private static void performAction(int choice) {
-		if (choice == DISPLAY_STUDENT_DETAILS) {
-			new DisplayList().displayStudentList();
+				else if (choice == ADD_STUDENT) {
+					try {
+						Student student = new Student();
+						System.out.println("Enter first name");
+						student.setFirstName(br.readLine());
+						System.out.println("Enter last name");
+						student.setLastName(br.readLine());
+						System.out.println("Enter Address");
+						student.setAddress(br.readLine());
+						studentList.addStudent(student);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else if (choice == COUNT_STUDENT) {
+					System.out.println(StudentList.getCountOfStudent());
+				} else if (choice == GENERATE_RESUME) {
+					new GenerateResumes().generateResumes();
+				}
+			}
+
 		}
 
-		else if (choice == ADD_STUDENT) {
-			new AddStudent().addStudent();
-		}
-		else if (choice == COUNT_STUDENT) {
-			System.out.println(StudentList.getCountOfStudent());
-		}
-		else if (choice == GENERATE_RESUME) {
-			new GenerateResumes().generateResumes();
-		}
 	}
+	
+
 }
