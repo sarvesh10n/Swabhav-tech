@@ -2,6 +2,8 @@ package com.techlabs.unit.testing;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 
@@ -45,14 +47,12 @@ public class StudentDataStoreTest {
 		studentDataStore.addStudent(student);
 		
 		int previous_count=studentDataStore.getStudentCount();
+		//studentDataStore.saveData();
 		
-		studentDataStore.saveData();
+		StudentDataStore studentDataStore1=new StudentDataStore();
+		studentDataStore1.fetchData();
 		
-		studentDataStore.getList().removeAll(studentDataStore.getList());
-		
-		studentDataStore.fetchData();
-		
-		int new_count=studentDataStore.getStudentCount();
+		int new_count=studentDataStore1.getStudentCount();
 		assertEquals(previous_count, new_count);
 	}
 }

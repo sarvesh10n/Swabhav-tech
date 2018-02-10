@@ -18,7 +18,7 @@ public class StudentDataStore {
 		studentList.add(student);
 	}
 
-	public ArrayList<Student> getList() {
+	public Iterable<Student> getList() {
 		return studentList;
 	}
 
@@ -33,6 +33,7 @@ public class StudentDataStore {
 			studentList = (ArrayList<Student>) ois.readObject();
 			ois.close();
 		} catch (Exception e) {
+			System.out.println("File not found");
 		}
 	}
 

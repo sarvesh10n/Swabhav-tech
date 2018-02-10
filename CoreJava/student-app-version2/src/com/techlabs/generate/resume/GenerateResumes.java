@@ -18,7 +18,7 @@ public class GenerateResumes {
 	private UUID rollNo;
 	public void generateResumes()
 	{	
-		ArrayList<Student> studentList=	new StudentDataStore().getList();
+		Iterable<Student> studentList=	new StudentDataStore().getList();
 		for (Student student :studentList) {
 			name=student.getFirstName()+" "+student.getLastName();
 			address=student.getAddress();
