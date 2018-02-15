@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class StudentDataStore {
 	public ArrayList<Student> studentList = new ArrayList<Student>();
@@ -47,6 +48,26 @@ public class StudentDataStore {
 		} catch (IOException e) {
 			System.out.println("file not found");
 		}
+	}
+
+	public Iterable<Student> search(String key) {
+		ArrayList<Student> search_result = new ArrayList<Student>();
+		for (Student stud : studentList) {
+			if (stud.getFirstName().toLowerCase().contains(key.toLowerCase())) {
+				search_result.add(stud);
+			}
+		}
+		return search_result;
+	}
+
+	public void removeStudent(String id) {
+		for (Student stud : studentList) {
+			if (stud.getRollNo().toString().equals(id)) {
+				studentList.remove(stud);
+				return;
+			}
+		}
+		System.out.println("No such student found");
 	}
 
 }
