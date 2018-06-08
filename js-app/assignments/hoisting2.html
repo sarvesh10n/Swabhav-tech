@@ -1,0 +1,44 @@
+<head>
+    <title>hoisting 2</title>
+</head>
+
+<body>
+    <script>
+        "use strict"
+        function f1() {
+            console.log("inside f1");
+
+            for (var count = 1; count <= 10; count++) {
+                console.log(count);
+            }
+            console.log("counter outside loop " + count);
+        }
+        f1();
+        //console.log("counter outside function " + count);
+        console.log("end of scope");
+    </script>
+    <script>
+       // f2();
+        var f2 = function () {
+            console.log("inside f2");
+        }
+        f3();
+        function f3() {
+            console.log("inside f3");
+        }
+    </script>
+    <script>
+        var f4 = function () {
+            console.log("inside f4");
+            console.log("iifi 1");
+        }();
+
+        (function(){
+            console.log("iifi 2");
+        }());
+
+        (function(){
+            console.log("iifi 3");
+        })();
+    </script>
+</body>

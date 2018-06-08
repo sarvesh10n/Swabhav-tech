@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<head>
+    <title>global name space pollution</title>
+</head>
+
+<body>
+    <script>
+        function customer(firstName, lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.getFullName = function () {
+                return this.firstName + " " + this.lastName;
+            }
+        }
+    </script>
+    <script>
+        function customer(firstName, middleName, lastName) {
+            this.firstName = firstName;
+            this.middleName = middleName;
+            this.lastName = lastName;
+            this.getFullName = function () {
+                return this.firstName + " " + this.middleName + " " + this.lastName;
+            }
+        }
+    </script>
+    <div id=result>
+        <script>
+            document.getElementById("result").innerHTML = new customer("sarvesh", "nerurkar").getFullName();
+        </script>
+    </div>
+</body>

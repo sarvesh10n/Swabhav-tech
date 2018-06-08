@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+    <title>solution global name space pollution</title>
+</head>
+<body>
+        <script>
+            var SarveshSpace= SarveshSpace||{};
+            SarveshSpace.TeamA=SarveshSpace.TeamA||{};
+             SarveshSpace.TeamA.customer= function(firstName,lastName)
+            {
+                this.firstName=firstName;
+                this.lastName=lastName;
+                this.getFullName=function(){
+                    return this.firstName+" "+this.lastName;
+                }
+                return this;
+            }
+        </script>
+        <script>
+            var SarveshSpace= SarveshSpace||{};
+            SarveshSpace.TeamB=SarveshSpace.TeamB||{};
+             SarveshSpace.TeamB.customer= function(firstName, middleName, lastName) 
+            {
+                this.firstName = firstName;
+                this.middleName = middleName;
+                this.lastName = lastName;
+                this.getFullName = function () 
+                {
+                    return this.firstName + " " + this.middleName + " " + this.lastName;
+                }
+                return this;
+            }
+        </script>
+        <div id=result>
+            <script>
+                  document.getElementById("result").innerHTML=SarveshSpace.TeamB.customer("sarvesh","vinay","nerurkar").getFullName();
+            </script>
+        </div>
+    </body>

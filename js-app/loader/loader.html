@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<head>
+    <title>loader</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script>
+        function showLoading() {
+            setTimeout(function () {
+                load.style.display="none";
+                document.getElementById("text").innerHTML="Data has been loader from api";
+            }, 2000);
+            var load = document.getElementById("loader");
+            if (load.style.display == "none") {
+                load.style.display = "block";
+            }
+        }
+    </script>
+    <div class="wrapper">
+        <br>
+        <br>
+        <br>
+        <br>
+        <button class="button" onclick="showLoading()">Load</button>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <center>
+            <div class="loader" style="display:none" id="loader"></div>
+        </center>
+        <div id=text></div>
+    </div>
+
+</body>

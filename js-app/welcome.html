@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+    <title>welcome</title>
+</head>
+<body>
+    <script>
+        function printName()
+       {
+           var data=" "
+           var name=document.getElementById("name");
+           data=document.getElementById("display");
+           data.innerHTML =data.textContent+" "+name.value;
+           name.value='';
+        }
+    </script>
+   <div>
+      <div>
+        <label style="float: left;">Name:</label>
+      </div>
+      <div>
+        <input type="text" style="float: left;"  placeholder="enter name" id="name">
+        <input type="button" onclick="printName();" value="wish"></input>
+      </div>
+
+   <div>
+       <br>
+       <br>
+       <br>
+       <br>
+       <label id="display" value=" "></label>
+   </div>
+   
+</body>

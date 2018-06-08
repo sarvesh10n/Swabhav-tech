@@ -1,0 +1,30 @@
+
+.gameButton {
+    border-radius: 50%;
+    margin: 15px;
+    height: 75px;
+    width: 75px;
+}
+
+.button {
+    padding: 15px 25px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #ffffff;
+    background-color: #a2353d;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.button:hover {
+    background-color: #a2353d
+}
+
+.button:active {
+    background-color: #a2353d;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}

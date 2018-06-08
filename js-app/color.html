@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <title>welcome</title>
+</head>
+<body>
+    <script>
+        function changeColor()
+        {
+            var select=document.getElementById("color-option");
+            if(select.value=="red")
+                document.body.style.backgroundColor = "#FF846A";
+            else if(select.value=="blue")
+                document.body.style.backgroundColor="#405bc4";
+            else if(select.value=="green")
+                document.body.style.backgroundColor="#80FD85";    
+        }
+    </script>
+        <select onchange="changeColor()" id="color-option">
+                <option>red</option>
+                <option>blue</option>
+                <option>green</option>
+        </select>
+</body>
+

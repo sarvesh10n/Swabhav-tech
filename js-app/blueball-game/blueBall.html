@@ -1,0 +1,47 @@
+<head>
+    <title>Blue ball</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script>
+        function loadGame() {
+
+            var buttonSpace = document.getElementById("mainBoard");
+            
+            for (var i = 1; i <=50; i++) {
+               
+                    var ball = document.createElement('button');
+                    var textNode = document.createTextNode(i);
+                    ball.appendChild(textNode);
+                    ball.addEventListener("click",checkGuess);
+                    ball.setAttribute('class',"gameButton");
+                    buttonSpace.append(ball);
+                   // buttonSpace.innerHTML += '<button class="gameButton" id="btn">' + k++ + '</button>';
+                
+               // buttonSpace.innerHTML += '<br>'
+              // document.write("<br>")
+            }
+        }
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        var randomNumber = getRandomInt(1, 50);
+
+       // document.getElementById("btn").addEventListener("click",checkGuess)
+     
+       function checkGuess()
+        {
+           console.log(this.textNode)
+        }
+    </script>
+    <div>
+        <center>
+            <button class="button" onclick="loadGame()">Load game</button>
+        </center>
+    </div>
+    <br>
+    <center>
+        <div id=mainBoard></div>
+    </center>
+</body>

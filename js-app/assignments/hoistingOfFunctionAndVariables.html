@@ -1,0 +1,30 @@
+<head>
+    <title>hoisting of function and variables</title>
+</head>
+<body>
+    <!--this is for variable hoisting-->
+   <script>
+       // Outputs: undefined
+        console.log(declaredLater);
+
+        var declaredLater = "Now it's defined!";
+
+        // Outputs: "Now it's defined!"
+        console.log(declaredLater);
+   </script>
+
+
+    <!--this is for function hoisting-->
+    <script>
+        var name = "Baggins";
+        (function () {
+        // Outputs: "Original name was undefined"
+         console.log("Original name was " + name);
+         var name = "Underhill";
+          // Outputs: "New name is Underhill"
+         console.log("New name is " + name);
+        })();
+    </script>
+
+    
+</body>

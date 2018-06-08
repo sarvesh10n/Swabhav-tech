@@ -8,6 +8,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.techlabs.custom.exceptions.StudentNotFoundException;
+
 public class StudentDataStore {
 	public ArrayList<Student> studentList = new ArrayList<Student>();
 
@@ -53,11 +55,14 @@ public class StudentDataStore {
 	public Iterable<Student> search(String key) {
 		ArrayList<Student> search_result = new ArrayList<Student>();
 		for (Student stud : studentList) {
-			if (stud.getFirstName().toLowerCase().contains(key.toLowerCase())) {
+			if (stud.getFirstName().toLowerCase().startsWith(key.toLowerCase())) {
 				search_result.add(stud);
 			}
 		}
-		return search_result;
+		if(search_result.isEmpty())
+			throw new StudentNotFoundException("No such student found");
+		else	
+			return search_result;
 	}
 
 	public void removeStudent(String id) {
@@ -67,7 +72,7 @@ public class StudentDataStore {
 				return;
 			}
 		}
-		System.out.println("No such student found");
+		throw new StudentNotFoundException("student not found");
 	}
 
 }

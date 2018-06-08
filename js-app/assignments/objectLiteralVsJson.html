@@ -1,0 +1,15 @@
+<head>
+    <title>object literal vs json</title>
+</head>
+<body>
+    <script>
+        var car = {type:"Fiat", model:"500", color:"white"};
+        console.log(car);
+
+        jsonCar=JSON.stringify(car);
+        console.log(jsonCar);
+
+        literalCar=JSON.parse(jsonCar);
+        console.log(literalCar);
+    </script>
+</body>

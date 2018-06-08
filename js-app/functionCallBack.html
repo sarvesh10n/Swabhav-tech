@@ -1,0 +1,23 @@
+<head>
+    <title>fucntion callback</title>
+</head>
+
+<body>
+    <script>
+        var balance=500;
+
+        function fnDeposit(amount,fn){
+            balance+=amount;
+            console.log("doing deposit with "+balance);
+            fn(balance);
+        }
+        fnDeposit(100,function(currentBalance){
+            console.log("sms send for "+currentBalance);
+        });
+
+        fnDeposit(200,emailAlert);
+        function emailAlert(currentBalance){
+            console.log("send email "+currentBalance);
+        }
+    </script>
+</body>
