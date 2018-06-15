@@ -1,0 +1,45 @@
+<head>
+    <title>constructor pattern account</title>
+</head>
+
+<body>
+    <script>
+        function Account(accNo, name, balance) {
+            var _accNo;
+            var _name;
+            var _balance;
+            var _minimum_balance = 500;
+
+            if (accNo > 1000) {
+                _accNo = accNo;
+                _name = name;
+                _balance = balance;
+            }
+            this.getAccountNumber = function () {
+                return _accNo;
+            }
+            this.getName = function () {
+                return _name;
+            }
+            this.getBalance = function () {
+                return _balance;
+            }
+            this.deposit = function (amount) {
+                _balance += amount;
+            }
+            this.withdraw = function (amount) {
+                if ((_balance - amount) > _minimum_balance)
+                    _balance -= amount;
+            }
+        }
+        var account = new Account(324211, "sarvesh", 5000);
+        console.log(account);
+        console.log(account.getAccountNumber());
+        console.log(account.getBalance());
+        console.log(account.getName());
+        account.deposit(5000);
+        console.log(account.getBalance());
+        account.withdraw(500);
+        console.log(account.getBalance());
+    </script>
+</body>

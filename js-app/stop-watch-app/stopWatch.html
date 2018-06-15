@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="style.css">
+	<title>Simple Stopwatch</title>
+</head>
+
+<body>
+
+	<center>
+		<div class=timer>
+			<div id='hour' style="display: inline">00</div>
+			<div id='minute' style="display: inline">:00</div>
+			<div id='second' style="display: inline">:00</div>
+
+			<div id='controls'>
+				<button id='go'>Go</button>
+				<button style="display: none" id='stop'>Stop</button>
+				<button id='clear'>Clear</button>
+			</div>
+	</center>
+	</div>
+
+	<script>
+		(function () {
+			var sec = 0;
+			var min = 0;
+			var hr = 0;
+			var interval;
+			var go = document.getElementById("go");
+			var stop = document.getElementById("stop");
+			var clear = document.getElementById("clear");
+			go.addEventListener('click', startTimer);
+			stop.addEventListener('click', stopTimer);
+			clear.addEventListener('click', clearTimer);
+
+
+
+			function startTimer() {
+
+				go.setAttribute('style', "display:none");
+				stop.setAttribute('style', "display:show");
+				interval = setInterval(changeTime, 1000);
+			}
+
+			var hour = document.getElementById('hour');
+			var minute = document.getElementById('minute');
+			var second = document.getElementById('second');
+			function changeTime() {
+				sec++;
+				console.log(sec);
+				second.innerHTML = ':' + sec;
+				if (sec == 60) {
+					sec = 0;
+					min++;
+					minute.innerHTML = ':' + min;
+				}
+				if (min == 60) {
+					min = 0;
+					hr++;
+					hour.innerHTML = ':' + hr;
+				}
+			}
+
+			function stopTimer() {
+				go.setAttribute('style', 'display:show');
+				stop.setAttribute('style', 'display:none');
+				clearInterval(interval);
+			}
+
+			function clearTimer() {
+				stopTimer();
+				hr = 0;
+				min = 0;
+				sec = 0;
+				minute.innerHTML = '00:';
+				hour.innerHTML = '00:';
+				second.innerHTML = '00';
+			}
+		}());
+	</script>
+
+</body>
+
+</html>

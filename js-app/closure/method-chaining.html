@@ -1,0 +1,39 @@
+<head>
+    <title>Method chaining</title>
+</head>
+
+<body>
+    <script>
+        var makeCalculator=function()
+        {
+            var obj={};
+            var COMPANY="swabhav techlabs";
+            var DEVELOPER="sarvesh";
+                    obj.getCompany=function(){
+                        return COMPANY;
+                    }
+
+                    obj.getDeveloper=function(){
+                        return DEVELOPER;
+                    }        
+            
+                    obj.setCompany=function(_company){
+                        COMPANY=_company;
+                        return obj;
+                    }
+
+
+                    obj.setDeveloper=function(_developer){
+                        DEVELOPER=_developer;
+                        return obj;
+                    }        
+            
+            return obj;
+        }
+        var calculator=makeCalculator();
+        console.log(calculator);
+        calculator.setCompany("aurionpro").setDeveloper("sarvesh");
+        console.log(calculator.getCompany() );
+        console.log(calculator.getDeveloper());
+    </script>
+</body>

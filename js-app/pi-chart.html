@@ -1,0 +1,31 @@
+<head>
+    <title>pi chart</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="500" height="500"></canvas>
+    <script>
+        function draw() {
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            var colors = ['#4CAF50', '#00BCD4'];
+            angle1=((20/100)*360)*Math.PI/180;
+            angle2=2*Math.PI-angle1;
+            var angles = [angle1,angle2];
+            var beginAngle = 0;
+            var endAngle = 0;
+            for (var i = 0; i < angles.length; i++) {
+                beginAngle = endAngle;
+                endAngle = endAngle + angles[i];
+                ctx.beginPath();
+                ctx.fillStyle = colors[i % colors.length];
+                ctx.moveTo(200, 200);
+                ctx.arc(200, 200, 120, beginAngle, endAngle);
+                ctx.lineTo(200, 200);
+                ctx.stroke();
+                ctx.fill();
+            }
+        }
+        window.onload = draw;
+    </script>
+</body>

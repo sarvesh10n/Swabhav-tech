@@ -1,0 +1,32 @@
+<head>
+    <title>student closure</title>
+</head>
+
+<body>
+    <script>
+        var makeStudent = function () {
+            var obj = {};
+
+            var Name;
+            var RollNo;
+
+            obj.setName = function (name) {
+                Name = name;
+            }
+            obj.setRollNo = function (rollNo) {
+                RollNo = rollNo;
+            }
+
+            obj.getDetails = function () {
+                return "Name:" + Name + "RollNo:"+RollNo+"";
+            }
+            return obj;
+        }
+
+        var student=makeStudent();
+        console.log(student);
+        student.setName("sarvesh");
+        student.setRollNo("10");
+        console.log(student.getDetails());
+    </script>
+</body>

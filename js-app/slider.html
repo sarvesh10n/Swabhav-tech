@@ -1,17 +1,68 @@
 <!DOCTYPE html>
+
 <head>
     <title>
         slider
     </title>
+    <style>
+        button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin:2px;
+        }
+
+        .slidecontainer {
+            width: 100%;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
-    <script type="text/javascript" src="slider.js"></script>
 
     <div>
-        <input type="range" max="100" min="1" value="10" id="slider1">
+        <input type="range" max="100" min="1" value="10" id="slider1" class="slider">
     </div>
     <div id="button-box">
 
     </div>
+    <script type="text/javascript" src="slider.js"></script>
+
 </body>

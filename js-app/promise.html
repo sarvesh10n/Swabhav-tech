@@ -1,0 +1,36 @@
+<head>
+    <title>promise</title>
+</head>
+
+<body>
+    <script>
+        var dataService = function () {
+            var obj = {}
+            obj.getData = function () {
+                var p = new Promise(function (reslolve, reject) {
+                    var r = Math.random() * 10;
+                    if (r > 5)
+                        resolve(r);
+                    else {
+                        var e = new Error("E");
+                        reject(e);
+                    }
+                });
+                return p;
+            }
+            return obj;
+        }();
+
+        dataService.getData().then(fnSuccess,fnError);
+
+        console.log("end of scope");
+        
+        function fnSuccess(successMsg){
+            console.log("inside success");
+        }
+
+        function fnError(errorMsg){
+            console.log("inside error");
+        }
+    </script>
+</body>

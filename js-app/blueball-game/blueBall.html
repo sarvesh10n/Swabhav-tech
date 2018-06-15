@@ -4,10 +4,24 @@
 </head>
 
 <body>
+   
+    <div>
+        <center>
+            <button id="button" class="button" >Load game</button>
+        </center>
+    </div>
+    <br>
+    <center>
+        <div id="mainBoard"></div>
+        <div id="gameResult"></div>
+    </center>
     <script>
         function loadGame() {
 
+             document.getElementById("mainBoard").innerHTML="";
+             document.getElementById("gameResult").innerHTML="";
             var buttonSpace = document.getElementById("mainBoard");
+        
             
             for (var i = 1; i <=50; i++) {
                
@@ -16,6 +30,8 @@
                     ball.appendChild(textNode);
                     ball.addEventListener("click",checkGuess);
                     ball.setAttribute('class',"gameButton");
+                    ball.value=i;
+                    ball.setAttribute('id',"button");
                     buttonSpace.append(ball);
                    // buttonSpace.innerHTML += '<button class="gameButton" id="btn">' + k++ + '</button>';
                 
@@ -27,21 +43,33 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
         var randomNumber = getRandomInt(1, 50);
-
-       // document.getElementById("btn").addEventListener("click",checkGuess)
+        var counter=5;
+        console.log(randomNumber);
+        document.getElementById("button").addEventListener("click",loadGame);
      
        function checkGuess()
         {
-           console.log(this.textNode)
-        }
+            if(counter>0)
+            {
+                counter--;
+                var input=this.value;
+                if(input==randomNumber)
+                {
+                    this.setAttribute('style','background-color:yellow');
+                    document.getElementById("gameResult").innerHTML="You have guessed correctly";
+                    counter=0;
+                }
+                else if(input<randomNumber)
+                    this.setAttribute('style','background-color:red');
+                else if(input>randomNumber)
+                    this.setAttribute('style','background-color:green');
+            }
+            else
+            {
+                document.getElementById("gameResult").innerHTML="5 chances are over!! You lost!!";
+                setTimeout(loadGame,3000);
+               
+            }
+        }   
     </script>
-    <div>
-        <center>
-            <button class="button" onclick="loadGame()">Load game</button>
-        </center>
-    </div>
-    <br>
-    <center>
-        <div id=mainBoard></div>
-    </center>
 </body>

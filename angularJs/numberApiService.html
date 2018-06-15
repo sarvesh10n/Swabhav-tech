@@ -1,0 +1,61 @@
+<head>
+    <title>numbersApi</title>
+    <link rel="stylesheet" href="bootstrap3/css/bootstrap.css">
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <div ng-app="numberapi">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-2">
+                    <h1>Enter No.</h1>
+                </div>
+                <div></div>
+                <div class="col-md-2">
+                    <div ng-controller="numberapiController">
+                        <div class="form-group">
+                            <input type="text" class="form-control" ng-model="inputNumber">
+                        </div>
+                        <div class="btn btn-success" ng-click="search()">Search</div>
+
+                        <div class="jumbotron">{{output}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+
+        angular.module('numberapi', []).controller('numberapiController', function ($scope, dataService) {
+            $scope.validInput = function () {
+                $scope.valid = true;
+                if ($scope.inputNumber == '')
+                    $scope.valid = false;
+                return $scope.valid;
+            }
+            $scope.output = '';
+            $scope.search = function () {
+                console.log($scope.inputNumber);
+                if ($scope.validInput($scope.inputNumber)) {
+                    dataService.getData("http://numbersapi.com/" + $scope.inputNumber).then(function (r) {
+                        console.log(r.data);
+                        $scope.output = r.data;
+
+                    })
+                }
+            }
+        })
+        angular.module('numberapi')
+            .factory('dataService', function ($http) {
+                var obj = {};
+                obj.getData = function (url) {
+                    return $http.get(url);
+                }
+                return obj;
+            });
+
+
+    </script>

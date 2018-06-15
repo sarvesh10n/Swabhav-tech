@@ -1,0 +1,110 @@
+<head>
+    <title>number api</title>
+    <style>
+        input {
+            text-align: center;
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        input[type=button] {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <center>
+            <input id="input" type="text" placeholder="add to list" name="input">
+            <input type="button" id="hello" value="hello" onclick="printHello()">
+            <div id="listNames"></div>
+        </center>
+        <script>
+            var input = document.getElementById("input");
+            var listArea = document.getElementById("listNames");
+            var today = new Date();
+            input.addEventListener('keyup', function (e) {
+                if (e.keyCode == 13) {
+                    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+                    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                    dateTime = date + ' ' + time;
+                    console.log(dateTime);
+                    addToList(dateTime);
+                }
+            });
+            var output;
+            function addToList(dateTime) {
+                var xhttp;
+
+                if (window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                } else {
+                    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+
+                function validInput() {
+                    var valid = true;
+                    console.log(input.value);
+                    if ((input.value) == '')
+                        valid = false;
+                    return valid;
+                }
+                xhttp.onreadystatechange = function () {
+                    if (validInput()) {
+                        if (this.readyState == 4 && this.status == 200) {
+                            output = this.responseText;
+                            var tr = document.createElement("tr");
+                            var table = document.createElement("table");
+                            var td1 = document.createElement("td");
+                            var tdValue = document.createTextNode(output);
+                            td1.appendChild(tdValue);
+                            var td2 = document.createElement('td');
+                            var td2Value = document.createTextNode(dateTime);
+                            td2.appendChild(td2Value);
+                            table.appendChild(tr);
+                            tr.appendChild(td1);
+                            tr.appendChild(td2);
+
+                            listArea.append(table);
+                            input.value = "";
+                        }
+                    }
+                }
+                xhttp.open("GET", "http://numbersapi.com/" + input.value, true);
+                xhttp.send();
+            }
+            function printHello() {
+                console.log("hello");
+            }
+        </script>
+    </div>
+</body>

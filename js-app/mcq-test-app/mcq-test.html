@@ -1,0 +1,168 @@
+<head>
+    <title>mcq test</title>
+</head>
+
+<body>
+   
+    <div id="result"></div>
+    <div>
+        <input type="button" value="generate questions" id="generate">
+        <form action="javascript:void(0)" id="question-bank">
+            <div id="questionsArea"></div>
+        </form>
+        <input type="button" id="submit" value="submit" style="display:none">
+    
+        <script>
+            var questions = [{
+                "id": "1",
+                "question": "WWW stands for ?",
+                "options": {
+                    "a": "World Whole Web",
+                    "b": "Wide World Web",
+                    "c": "Web World Wide",
+                    "d": "World Wide Web"
+                },
+                "answer": "d"
+            },
+            {
+                "id": "2",
+                "question": "Which of the following are components of Central Processing Unit (CPU) ?",
+                "options": {
+                    "a": "Arithmetic logic unit, Mouse",
+                    "b": "Arithmetic logic unit, Control unit",
+                    "c": "Arithmetic logic unit, Integrated Circuits",
+                    "d": "Control Unit, Monitor"
+                },
+                "answer": "b"
+            },
+            {
+                "id": "3",
+                "question": "Which among following first generation of computers had ?",
+                "options": {
+                    "a": "Vaccum Tubes and Magnetic Drum",
+                    "b": "Integrated Circuits",
+                    "c": "Magnetic Tape and Transistors",
+                    "d": "All of above"
+                },
+                "answer": "a"
+            },
+            {
+                "id": "4",
+                "question": "Where is RAM located ?",
+                "options": {
+                    "a": "Expansion Board",
+                    "b": "External Drive",
+                    "c": "Mother Board",
+                    "d": "All of above"
+                },
+                "answer": "c"
+            },
+            {
+                "id": "5",
+                "question": "If a computer has more than one processor then it is known as ?",
+                "options": {
+                    "a": "Uniprocess",
+                    "b": "Multiprocessor",
+                    "c": "Multithreaded",
+                    "d": "Multiprogramming"
+                },
+                "answer": "b"
+            }
+            ];
+            var score = 0;
+            var percent=0;
+            var randomNumber = [];
+            var generateBtn = document.getElementById("generate");
+            var submitBtn=document.getElementById("submit");
+            var result=document.getElementById("result");
+            submitBtn.addEventListener('click',submitAnswers)
+            generateBtn.addEventListener('click', displayQuestions);
+            console.log(questions);
+            // console.log(JSON.parse(questions));
+            var questionsArea = document.getElementById("questionsArea");
+
+            function generateRandomSequence(start, end) {
+                var random = Math.round((Math.random() * 100000) % (end - 1));
+                if (randomNumber.length != end) {
+                    var exist = 0;
+                    for (var i in randomNumber) {
+                        if (randomNumber[i] == random) {
+                            exist = 1;
+                        }
+                    }
+                    if (exist == 0) {
+                        randomNumber.push(random);
+                    }
+                    generateRandomSequence(0, end);
+                }
+            }
+            function displayQuestions() {
+                submitBtn.setAttribute("style","display:show");
+                questionsArea.innerHTML = "";
+                generateRandomSequence(0, questions.length);
+                for (var i in randomNumber) {
+
+                    var div = document.createElement('div');
+                    var divText = document.createTextNode(questions[randomNumber[i]].question);
+                    div.appendChild(divText);
+
+                    var optionDiv = document.createElement('div');
+                    optionDiv.setAttribute('data', questions[randomNumber[i]]);
+                    for (var key in questions[randomNumber[i]].options) {
+                        var option = document.createElement('input');
+                        option.setAttribute('type', 'radio');
+                        option.value = key;
+                        option.setAttribute('name', 'question' + randomNumber[i]);
+
+                        var optionText = document.createTextNode(questions[randomNumber[i]].options[key]);
+                        console.log(optionText);
+                        var optionNode = document.createElement('div');
+                        optionNode.appendChild(option);
+                        optionNode.appendChild(optionText);
+                        optionDiv.appendChild(optionNode);
+                    }
+                    var separatorNode = document.createElement('DIV');
+                    separatorNode.appendChild(div);
+                    separatorNode.appendChild(optionDiv);
+                    questionsArea.appendChild(separatorNode);
+                    // action.setAttribute('style', 'display:inline-block');
+                }
+            }
+            function getRadioVal(form, name) {
+                var val;
+
+                var radios = form.elements[name];
+
+                for (var i = 0, len = radios.length; i < len; i++) {
+                    if (radios[i].checked) {
+                        val = radios[i].value;
+                        break;
+                    }
+                }
+                return val;
+            }
+
+            function calculatePercentage() {
+                score=0;
+                percent=0;
+                for (var i in randomNumber) {
+                    var selectedOption = getRadioVal(document.getElementById('question-bank'), 'question' + randomNumber[i]);
+                    if (selectedOption != undefined) {
+                        if (questions[randomNumber[i]].answer == selectedOption) {
+                            score++;
+                        }
+                    }
+                }
+                console.log(score);
+                percent=(score/questions.length)*100;
+                result.innerHTML="Your scored "+percent+"%";
+
+            }
+            function submitAnswers()
+            {
+                submitBtn.disabled="true";
+                calculatePercentage()
+            }
+        </script>
+    </div>
+</body>

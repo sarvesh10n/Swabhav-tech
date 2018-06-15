@@ -1,0 +1,306 @@
+<head>
+    <title>api request</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="boostrap3/css/bootstrap.css">
+
+    <style>
+        .table {
+            margin: 0px auto;
+        }
+
+        td {
+            padding: 0px 30px 0px 0px;
+        }
+
+        input[type=button] {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        td,
+        th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid blue;
+            border-right: 16px solid green;
+            border-bottom: 16px solid red;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <div>
+            <div class="btn btn-success" id="button">Fetch data</div>
+            <div class="btn btn-success" id="addStudent">Add new student</div>
+        </div>
+    </center>
+    <br>
+    <center>
+        <table class="table table-boarded" style="display: none;" id="addStudentTable">
+            <tr>
+                <td>Roll No</td>
+                <td>
+                    <input type="text" id="inputRollNo">
+                </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" id="inputName">
+                </td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td>
+                    <input type="text" id="inputAge">
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="text" id="inputEmail">
+                </td>
+            </tr>
+            <tr>
+                <td>Enter DOB</td>
+                <td>
+                    <input type="date" id="inputDate">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="gender" value="male" id="male" checked> Male</td>
+                <td>
+                    <input type="radio" name="gender" value="female" id="female"> Female</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <center>
+                        <div class='btn btn-success' type='button' id="submit">submit</div>
+                    </center>
+                    <center>
+                        <i class="fa fa-circle-o-notch fa-spin" id='loader' style="font-size:24px;display:none"></i>
+                    </center>
+                </td>
+            </tr>
+        </table>
+
+
+        <p id='count'></p>
+
+        <table id="table" style="display: none;">
+        </table>
+    </center>
+    <script>
+        var apiUrl = "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students";
+        $(document).ready(function () {
+            table = document.getElementById("table");
+            var studentList = [];
+            $("#button").click(function () {
+                refreshData();
+            });
+
+            window.onload = refreshData;
+            var count;
+            function refreshData() {
+                $('#addStudentTable').css('display', 'none');
+                $.ajax({
+
+                    url: apiUrl, success: function (result) {
+                        studentList = result;
+                        generateList();
+                    }
+
+                });
+            }
+            function generateList() {
+
+                $("#table").css("display", "show");
+                $("#table").html('');
+                var heading = "<tr>" +
+                    "<td>RollNo</td>" +
+                    "<td>Name</td>" +
+                    "<td>Age</td>" +
+                    "<td>Email</td>" +
+                    "<td>DOB</td>" +
+                    "<td>Gender</td>" +
+                    "</tr>"
+                $('#table').append(heading);
+                count = studentList.length;
+                $('#count').html("Total count of students are " + count);
+                for (var i = 0; i < studentList.length; i++) {
+                    var tableRow = document.createElement('tr');
+
+                    var gender = "female";
+                    if (studentList[i]['isMale'] == true)
+                        var gender = "male";
+                    var rollNo = studentList[i]['rollNo'];
+                    var name = studentList[i]['name'];
+                    var age = studentList[i]['age'];
+                    var email = studentList[i]['email'];
+                    var date = studentList[i]['date'];
+
+                    var data = "<tr><td>" + rollNo + "</td>" +
+                        "<td>" + name + "</td>" +
+                        "<td>" + age + "</td>" +
+                        "<td>" + email + "</td>" +
+                        "<td>" + date + "</td>" +
+                        "<td>" + gender + "</td>" +
+                        "<td><div class='btn btn-success' id='updateRow' value='" + rollNo + "'>" + "<div class='glyphicon glyphicon-pencil'></div>" + "</div></td>" +
+                        "<td><div class='btn btn-danger' id='deleteRow' value='" + rollNo + "'>" + "<div class='glyphicon glyphicon-remove'></div>" + "</div></td>" +
+                        "</tr>";
+                    $('#table').append(data);
+
+                }
+            }
+            $('#addStudent').click(function () {
+                $('#addStudentTable').css('display', 'show');
+
+            });
+
+            $(document).on('click', '#deleteRow', function (e) {
+                var rollNo = $(this).attr('value');
+                console.log(rollNo);
+                $.ajax({
+                    url: apiUrl + "/" + rollNo, method: 'DELETE',
+                    success: function (result) {
+                        console.log(result);
+
+                        refreshData();
+                    }
+                })
+
+            });
+
+            $(document).on('click', '#updateRow', function (e) {
+                var rollNo = $(this).attr('value');
+                console.log(rollNo);
+                $('#addStudentTable').css('display', 'show');
+                $('#inputRollNo').val(rollNo);
+                $('#inputRollNo').prop('disabled', true);
+                $.ajax({
+                    url: apiUrl + "/" + rollNo, method: 'get',
+                    success: function (result) {
+                        updateStudent(result);
+                    }
+                })
+
+            });
+            function updateStudent(student) {
+                $('#inputName').val(student['name']);
+                $('#inputAge').val(student['age']);
+                $('#inputEmail').val(student['email']);
+                $("#male").prop("checked", true);
+                if (student['isMale'] == false)
+                    $("#female").prop("checked", true);
+                $('#inputDate').val(student['date']);
+
+
+            }
+            $('#submit').click(function (e) {
+
+                var isValid = true;
+                $('input[type="text"]').each(function () {
+                    border = "";
+                    background = "";
+                    if ($.trim($(this).val()) == '') {
+                        isValid = false;
+                        border = "1px solid red";
+                        background = "#FFCECE";
+
+                    }
+                    $(this).css({
+                        "border": border,
+                        "background": background
+                    });
+                });
+
+                if (isValid == false)
+                    e.preventDefault();
+                if (isValid) {
+                    $('#submit').css('display', 'none');
+                    $('#loader').css('display', 'show');
+                    setTimeout(function () {
+                        student = {}
+                        student.rollNo = $('#inputRollNo').val();
+                        student.name = $('#inputName').val();
+                        student.age = $('#inputAge').val();
+                        student.email = $('#inputEmail').val();
+                        var dates = new Date($('#inputDate').val());
+                        day = dates.getDate();
+                        month = dates.getMonth() + 1;
+                        year = dates.getFullYear();
+                        student.date = $('#inputDate').val();//year + '-' + month + '-' + day;
+                        student.isMale = false;
+                        if ($('input[name=gender]:checked').val() == "male")
+                            student.isMale = true;
+                        console.log(student);
+                        $.ajax({
+                            url: apiUrl, data: student, method: 'post',
+                            success: function (result) {
+                                console.log(result);
+                                $('#loader').css('display', 'none');
+                                $('#submit').css('display', 'show');
+                                refreshData();
+                            }
+                        })
+
+                    }, 2000);
+                }
+
+            });
+        });
+    </script>
+</body>

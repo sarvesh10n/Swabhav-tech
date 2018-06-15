@@ -1,0 +1,36 @@
+<head>
+    <title>module pattern</title>
+</head>
+
+<body>
+    <script>
+        var makeCalculator=function()
+        {
+            var obj={};
+            var COMPANY="swabhav techlabs";
+            var DEVELOPER="sarvesh";
+
+            obj.cubeEvenNo=function(no){
+                if(no%2==0)
+                    return no*no*no;
+                else
+                    throw "not_even";
+            }
+            
+                    obj.getCompany=function(){
+                        return COMPANY;
+                    }
+
+                    obj.getDeveloper=function(){
+                        return DEVELOPER;
+                    }        
+            
+            return obj;
+        }
+        var calculator=makeCalculator();
+        console.log(calculator);
+        console.log(calculator.cubeEvenNo(2));
+        console.log(calculator.getCompany() );
+        console.log(calculator.getDeveloper());
+    </script>
+</body>

@@ -1,0 +1,116 @@
+<head>
+    <title>employee</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="../bootstrap3/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <div ng-app="employee-app" ng-controller="employee-controller">
+        <div class="container">
+            <div class="row text-center">
+                <h2>Name</h2>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" ng-model="employee.name">
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="row text-center">
+                <h2>ID</h2>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="id" ng-model="employee.id">
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <div class="row text-center">
+                <h2>Job profile</h2>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <input type="text" id="jobProfile" class="form-control" ng-model="employee.jobProfile">
+                    </div>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <br>
+            <div class="row text center">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <div ng-click="submitEmployee()" class="=btn btn-lg btn-success text-center">Submit</div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <table class="table table-striped">
+                <tr>
+                    <td>Name</td>
+                    <td>ID</td>
+                    <td>Job profile</td>
+                </tr>
+                <tr ng-repeat="emp in empList">
+                    <td>{{emp.name}}</td>
+                    <td>{{emp.id}}</td>
+                    <td>{{emp.jobProfile}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+
+
+        var app = angular.module('employee-app', []);
+        app.controller('employee-controller', function ($scope) {
+            $scope.empList = [];
+
+            $scope.employee = {
+                name: '',
+                id: '',
+                jobProfile: ''
+            }
+
+            $scope.resetFields = function () {
+                $scope.employee.name = "";
+                $scope.employee.id = "";
+                $scope.employee.jobProfile = "";
+            }
+
+
+            $scope.validate = function () {
+                valid = true;
+                if ($scope.employee.name == '')
+                    valid = false;
+                if ($scope.employee.id == '')
+                    valid = false;
+                if ($scope.employee.jobProfile == '')
+                    valid = false;
+                return valid;
+            }
+            $scope.submitEmployee = function () {
+                
+                if ($scope.validate()) {
+                    console.log("inside validate");
+                    console.log($scope.employee);
+                    $scope.empList.push($scope.employee);
+                    console.log($scope.empList);
+                    $scope.resetFields();
+                }
+            }
+        });
+    </script>
+</body>

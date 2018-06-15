@@ -1,0 +1,95 @@
+<head>
+    <title>list</title>
+    <style>
+        div{
+            width: 500px;
+			margin: auto;
+			border: 2px solid #D3D3D3;
+        }
+		button{
+			float:left;
+			background-color: #D3D3D3; /* Green */
+			border: none;
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+		}
+		button:hover {background-color: #808080}
+		input[type=text] {
+		padding: 0;
+		height: 30px;
+		position: relative;
+		left: 0;
+		outline: none;
+		border: 1px solid #cdcdcd;
+		border-color: rgba(0,0,0,.15);
+		background-color: white;
+		font-size: 16px;
+		}
+		
+    </style>
+</head>
+
+<body>
+    <center>
+        <input id="input" type="text" placeholder="add to list" name="input">
+        <div id="listNames"></div>
+    </center>
+    <script>
+        var storage = [];
+
+        var input = document.getElementById("input");
+        var listArea = document.getElementById("listNames");
+        var localStoredList = JSON.parse(localStorage.getItem("listStored"));
+        console.log(localStoredList);
+        if (localStoredList != undefined) {
+            storage = localStoredList;
+            generateList();
+        }
+
+        function generateList() {
+            for (i = 0; i < storage.length; i++) {
+                var div = document.createElement("div");
+                var divText = document.createTextNode(storage[i]);
+                var btn = document.createElement("button");
+                btn.value = div.innerHTML;
+                var btnText = document.createTextNode("X");
+                btn.addEventListener('click', deleteItem);
+                btn.appendChild(btnText)
+                div.appendChild(btn);
+                div.appendChild(divText);
+                document.getElementById("listNames").append(div);
+            }
+        }
+
+        input.addEventListener('keyup', function (e) {
+            if (e.keyCode == 13) {
+                addToList();
+            }
+        });
+        function addToList() {
+            storage.push(input.value);
+            localStorage.setItem("listStored", JSON.stringify(storage));
+            var div = document.createElement("div");
+            var divText = document.createTextNode(input.value);
+            var btn = document.createElement("button");
+            btn.value = div.innerHTML;
+            var btnText = document.createTextNode("X");
+            btn.addEventListener('click', deleteItem);
+            btn.appendChild(btnText)
+            div.appendChild(btn);
+            div.appendChild(divText);
+            document.getElementById("listNames").append(div);
+            input.value = " ";
+        }
+        function deleteItem() {
+            listArea.removeChild(this.parentNode);
+            storage.splice(storage.indexOf(this.value), 1);
+            localStorage.setItem("listStored", JSON.stringify(storage));
+
+        }
+
+    </script>
+</body>

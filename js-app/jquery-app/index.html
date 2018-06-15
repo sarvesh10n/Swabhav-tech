@@ -1,0 +1,30 @@
+<head>
+    <title>jquery app</title>
+</head>
+
+<body>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#submit").click(function () {
+                console.log($("#Name").val());
+                console.log($("#password").val());
+                if (($("#Name").val() == "sarvesh") && ($("#password").val() == "123"))
+                    window.location.replace("welcome.html");
+            });
+        });
+    </script>
+    <center>
+        <div>Name
+            <input type="text" id="Name" name="Name">
+        </div>
+        <div>
+            Password
+            <input type="password" id="password" name="password">
+        </div>
+        <div>
+            <input type="button" id="submit" value="submit">
+        </div>
+        </div>
+    </center>
+</body>
