@@ -1,0 +1,33 @@
+<section>
+    <center>
+        <table id="table">
+            <tr>
+                <td>RollNo</td>
+                <td>Name</td>
+                <td>Age</td>
+                <td>Email</td>
+                <td>DOB</td>
+                <td>Gender</td>
+            </tr>
+            <tr ng-repeat="stud in student">
+                <td>{{stud.rollNo}}</td>
+                <td>{{stud.name}}</td>
+                <td>{{stud.age}}</td>
+                <td>{{stud.email}}</td>
+                <td>{{stud.date| date :  "yyyy.MM.d"}}</td>
+                <td>{{stud.isMale | gender}}</td>
+                <td>
+                    <a ng-href="{{'#updateStudent/'+stud.rollNo}}" class="btn btn-success">
+                        <div class='glyphicon glyphicon-pencil'></div>
+                    </a>
+                </td>
+                <td>
+                    <a ng-href="{{'#deleteStudent/'+stud.rollNo}}" class="btn btn-danger" ng-click="deleteRow(stud.rollNo)">
+                        <div class='glyphicon glyphicon-remove'></div>
+                    </a>
+                </td>
+            </tr>
+
+        </table>
+    </center>
+</section>

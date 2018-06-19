@@ -1,0 +1,87 @@
+<head>
+    <title>api request</title>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../boostrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="script.js"></script>
+
+    
+</head>
+<body>
+    <center>
+        <div>
+            <div class="btn btn-success" id="button">Fetch data</div>
+            <div class="btn btn-success" id="addStudent">Add new student</div>
+        </div>
+    </center>
+    <br>
+    <center>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" id="close">close X</span>
+                </div>
+                <form action="" id="form">
+                    <table class="table table-boarded" style="display: none;" id="addStudentTable">
+                        <tr>
+                            <td>Roll No</td>
+                            <td>
+                                <input type="text" id="inputRollNo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>
+                                <input type="text" id="inputName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Age</td>
+                            <td>
+                                <input type="text" id="inputAge">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>
+                                <input type="text" id="inputEmail">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Enter DOB</td>
+                            <td>
+                                <input type="date" id="inputDate">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" name="gender" value="male" id="male" checked> Male</td>
+                            <td>
+                                <input type="radio" name="gender" value="female" id="female"> Female</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <center>
+                                    <div class='btn btn-success' type='button' id="submit">submit</div>
+                                </center>
+                                <center>
+                                    <div class='btn btn-success' type='button' id="update" style="display:none">update</div>
+                                </center>
+                                <center>
+                                    <i class="fa fa-circle-o-notch fa-spin" id='loader' style="font-size:24px;display:none"></i>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
+
+
+        <p id='count'></p>
+
+        <table id="table" style="display: none;">
+        </table>
+        </form>
+    </center>
+</body>

@@ -28,7 +28,7 @@
     </div>
     <script>
         var app = angular.module('numberapi', []);
-        app.controller('numberapiController', function ($scope, $http) {
+        app.controller('numberapiController', ['$scope', '$http', function ($scope, $http) {
             $scope.output = '';
             $scope.search = function () {
                 console.log($scope.inputNumber);
@@ -38,6 +38,6 @@
 
                 })
             }
-        })
+        }]);
     </script>
 </body>

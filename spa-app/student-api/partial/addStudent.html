@@ -1,0 +1,60 @@
+<section>
+    <div ng-form="form">
+        <table class="table table-boarded">
+            <tr>
+                <td>Roll No</td>
+                <td>
+                    <input type="number" name="inputRollNo" ng-model="stud.rollNo" required>
+                    <span ng-show="form.inputRollNo.$dirty && form.inputRollNo.$error.required">RollNo is required</span>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    <input type="text" name="inputName" ng-model="stud.name" required>
+                    <span ng-show="form.inputName.$dirty && form.inputName.$error.required">Name is required</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td>
+                    <input type="number" name="inputAge" ng-model="stud.age" required>
+                    <span ng-show="form.inputAge.$dirty && form.inputAge.$error.required">Age is required</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="text" name="inputEmail" ng-model="stud.email" required>
+                    <span ng-show="form.inputEmail.$dirty && form.inputEmail.$error.required">Email is required</span>
+                </td>
+            </tr>
+            <tr>
+                <td>Enter DOB</td>
+                <td>
+                    <input type="date" name="inputDate" ng-model="stud.date" required>
+                    <span ng-show="form.inputDate.$dirty && form.inputDate.$error.required">Date is required</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" ng-model="stud.isMale" name="gender" value="true" id="male" required> Male</td>
+                <td>
+                    <input type="radio" ng-model="stud.isMale" name="gender" value="false" id="female" required> Female</td>
+                <span ng-show="form.gender.$dirty && form.gender.$error.required">gender is required</span>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <center>
+                        <div class='btn btn-success' type='submit' value='submit' id="submit" ng-click="submit()" ng-disabled="form.$prestine || form.$invalid">submit</div>
+                    </center>
+                    <center>
+                        <i class="fa fa-circle-o-notch fa-spin" id='loader' style="font-size:24px;display:none"></i>
+                    </center>
+                    <span ng-show="studentAdded">student succesfully added</span>
+                </td>
+            </tr>
+        </table>
+        </form>
+</section>

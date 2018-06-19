@@ -1,0 +1,35 @@
+<head>
+    <title>es6Features</title>
+</head>
+
+<body>
+    <script>
+        const greeting = (firstName, lastName) => {
+            return `hello ${firstName} ${lastName}`;
+        }
+        console.log(greeting("sarvesh", "nerurkar"));
+
+        const greetings = name => `hello ${name}`;
+        console.log(greetings("sarvesh"));
+
+
+        const obj1 = { a: 1, b: 2 }
+        const obj2 = { a: 2, c: 3, d: 4 }
+        const obj3 = { ...obj1, ...obj2 }
+        console.log(obj3);
+
+        let x = 1;
+
+        if (x === 1) {
+            let x = 2;
+
+            console.log(x);
+        }
+
+        console.log(x);
+
+        const c=10;
+        console.log(c);
+
+    </script>
+</body>

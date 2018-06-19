@@ -76,6 +76,101 @@
                 transform: rotate(360deg);
             }
         }
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+
+        .modal-content {
+            position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 80%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            -webkit-animation-name: animatetop;
+            -webkit-animation-duration: 0.4s;
+            animation-name: animatetop;
+            animation-duration: 0.4s
+        }
+
+        /* Add Animation */
+
+        @-webkit-keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        @keyframes animatetop {
+            from {
+                top: -300px;
+                opacity: 0
+            }
+            to {
+                top: 0;
+                opacity: 1
+            }
+        }
+
+        /* The Close Button */
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        .modal-body {
+            padding: 2px 16px;
+        }
+
+        .modal-footer {
+            padding: 2px 16px;
+            background-color: #5cb85c;
+            color: white;
+        }
     </style>
 </head>
 
@@ -88,60 +183,72 @@
     </center>
     <br>
     <center>
-        <table class="table table-boarded" style="display: none;" id="addStudentTable">
-            <tr>
-                <td>Roll No</td>
-                <td>
-                    <input type="text" id="inputRollNo">
-                </td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td>
-                    <input type="text" id="inputName">
-                </td>
-            </tr>
-            <tr>
-                <td>Age</td>
-                <td>
-                    <input type="text" id="inputAge">
-                </td>
-            </tr>
-            <tr>
-                <td>Email</td>
-                <td>
-                    <input type="text" id="inputEmail">
-                </td>
-            </tr>
-            <tr>
-                <td>Enter DOB</td>
-                <td>
-                    <input type="date" id="inputDate">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="radio" name="gender" value="male" id="male" checked> Male</td>
-                <td>
-                    <input type="radio" name="gender" value="female" id="female"> Female</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <center>
-                        <div class='btn btn-success' type='button' id="submit">submit</div>
-                    </center>
-                    <center>
-                        <i class="fa fa-circle-o-notch fa-spin" id='loader' style="font-size:24px;display:none"></i>
-                    </center>
-                </td>
-            </tr>
-        </table>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" id="close"><p>close </p>X</span>
+                </div>
+                <form action="" id="form">
+                    <table class="table table-boarded" style="display: none;" id="addStudentTable">
+                        <tr>
+                            <td>Roll No</td>
+                            <td>
+                                <input type="text" id="inputRollNo">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Name</td>
+                            <td>
+                                <input type="text" id="inputName">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Age</td>
+                            <td>
+                                <input type="text" id="inputAge">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>
+                                <input type="text" id="inputEmail">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Enter DOB</td>
+                            <td>
+                                <input type="date" id="inputDate">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" name="gender" value="male" id="male" checked> Male</td>
+                            <td>
+                                <input type="radio" name="gender" value="female" id="female"> Female</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <center>
+                                    <div class='btn btn-success' type='button' id="submit">submit</div>
+                                </center>
+                                <center>
+                                    <div class='btn btn-success' type='button' id="update" style="display:none">update</div>
+                                </center>
+                                <center>
+                                    <i class="fa fa-circle-o-notch fa-spin" id='loader' style="font-size:24px;display:none"></i>
+                                </center>
+                            </td>
+                        </tr>
+                    </table>
+            </div>
+        </div>
 
 
         <p id='count'></p>
 
         <table id="table" style="display: none;">
         </table>
+        </form>
     </center>
     <script>
         var apiUrl = "http://gsmktg.azurewebsites.net/api/v1/techlabs/test/students";
@@ -153,8 +260,12 @@
             });
 
             window.onload = refreshData;
+            $("#close").click(function () {
+                $('#myModal').hide()
+            });
             var count;
             function refreshData() {
+                $('#myModal').hide();
                 $('#addStudentTable').css('display', 'none');
                 $.ajax({
 
@@ -206,9 +317,18 @@
                 }
             }
             $('#addStudent').click(function () {
+                $('#myModal').show();
+                refreshStudentTable();
                 $('#addStudentTable').css('display', 'show');
 
             });
+
+            function refreshStudentTable() {
+                $('#inputRollNo').prop('disabled', false);
+                $('#update').hide();
+                $('#submit').show();
+                $("#form")[0].reset();
+            }
 
             $(document).on('click', '#deleteRow', function (e) {
                 var rollNo = $(this).attr('value');
@@ -225,6 +345,9 @@
             });
 
             $(document).on('click', '#updateRow', function (e) {
+                $('#myModal').show();
+                $("#submit").hide();
+                $("#update").show();
                 var rollNo = $(this).attr('value');
                 console.log(rollNo);
                 $('#addStudentTable').css('display', 'show');
@@ -247,8 +370,39 @@
                     $("#female").prop("checked", true);
                 $('#inputDate').val(student['date']);
 
-
             }
+
+            $('#update').click(function (e) {
+                student = {};
+                student.rollNo = $('#inputRollNo').val();
+                student.name = $('#inputName').val();
+                student.age = $('#inputAge').val();
+                student.email = $('#inputEmail').val();
+                var dates = new Date($('#inputDate').val());
+                day = dates.getDate();
+                month = dates.getMonth() + 1;
+                year = dates.getFullYear();
+                student.date = $('#inputDate').val();//year + '-' + month + '-' + day;
+                student.isMale = false;
+                if ($('input[name=gender]:checked').val() == "male")
+                    student.isMale = true;
+                console.log(student);
+                $.ajax({
+                    url: apiUrl + "/" + student.rollNo, data: student, method: 'put', beforeSend: function () {
+                        $('#update').css('display', 'none');
+                        $('#loader').css('display', 'show');
+                    },
+                    success: function (result) {
+                        console.log(result);
+
+                    },
+                    complete: function () {
+                        $('#loader').css('display', 'none');
+                        $('#update').css('display', 'show');
+                        refreshData();
+                    }
+                })
+            });
             $('#submit').click(function (e) {
 
                 var isValid = true;
@@ -270,34 +424,35 @@
                 if (isValid == false)
                     e.preventDefault();
                 if (isValid) {
-                    $('#submit').css('display', 'none');
-                    $('#loader').css('display', 'show');
-                    setTimeout(function () {
-                        student = {}
-                        student.rollNo = $('#inputRollNo').val();
-                        student.name = $('#inputName').val();
-                        student.age = $('#inputAge').val();
-                        student.email = $('#inputEmail').val();
-                        var dates = new Date($('#inputDate').val());
-                        day = dates.getDate();
-                        month = dates.getMonth() + 1;
-                        year = dates.getFullYear();
-                        student.date = $('#inputDate').val();//year + '-' + month + '-' + day;
-                        student.isMale = false;
-                        if ($('input[name=gender]:checked').val() == "male")
-                            student.isMale = true;
-                        console.log(student);
-                        $.ajax({
-                            url: apiUrl, data: student, method: 'post',
-                            success: function (result) {
-                                console.log(result);
-                                $('#loader').css('display', 'none');
-                                $('#submit').css('display', 'show');
-                                refreshData();
-                            }
-                        })
+                    student = {}
+                    student.rollNo = $('#inputRollNo').val();
+                    student.name = $('#inputName').val();
+                    student.age = $('#inputAge').val();
+                    student.email = $('#inputEmail').val();
+                    var dates = new Date($('#inputDate').val());
+                    day = dates.getDate();
+                    month = dates.getMonth() + 1;
+                    year = dates.getFullYear();
+                    student.date = $('#inputDate').val();//year + '-' + month + '-' + day;
+                    student.isMale = false;
+                    if ($('input[name=gender]:checked').val() == "male")
+                        student.isMale = true;
+                    console.log(student);
+                    $.ajax({
+                        url: apiUrl, data: student, method: 'post', beforeSend: function () {
+                            $('#submit').css('display', 'none');
+                            $('#loader').css('display', 'show');
+                        },
+                        success: function (result) {
+                            console.log(result);
 
-                    }, 2000);
+                        },
+                        complete: function () {
+                            $('#loader').css('display', 'none');
+                            $('#submit').css('display', 'show');
+                            refreshData();
+                        }
+                    })
                 }
 
             });

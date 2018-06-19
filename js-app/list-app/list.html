@@ -1,40 +1,47 @@
 <head>
     <title>list</title>
     <style>
-        div{
+        div {
             width: 500px;
-			margin: auto;
-			border: 2px solid #D3D3D3;
+            margin: auto;
+            border: 2px solid #D3D3D3;
         }
-		button{
-			float:left;
-			background-color: #D3D3D3; /* Green */
-			border: none;
-			color: white;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-		}
-		button:hover {background-color: #808080}
-		input[type=text] {
-		padding: 0;
-		height: 30px;
-		position: relative;
-		left: 0;
-		outline: none;
-		border: 1px solid #cdcdcd;
-		border-color: rgba(0,0,0,.15);
-		background-color: white;
-		font-size: 16px;
-		}
-		
+
+        button {
+            float: left;
+            background-color: #D3D3D3;
+            /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #808080
+        }
+
+        input[type=text] {
+            padding: 0;
+            height: 30px;
+            position: relative;
+            left: 0;
+            outline: none;
+            border: 1px solid #cdcdcd;
+            border-color: rgba(0, 0, 0, .15);
+            background-color: white;
+            font-size: 16px;
+        }
     </style>
 </head>
 
 <body>
     <center>
         <input id="input" type="text" placeholder="add to list" name="input">
+        <br>
+        <br>
         <div id="listNames"></div>
     </center>
     <script>
@@ -69,20 +76,29 @@
                 addToList();
             }
         });
+
+        function validInput(){
+            var valid=true;
+            if(input.value=='')
+                valid=false;
+            return valid;
+        }
         function addToList() {
-            storage.push(input.value);
-            localStorage.setItem("listStored", JSON.stringify(storage));
-            var div = document.createElement("div");
-            var divText = document.createTextNode(input.value);
-            var btn = document.createElement("button");
-            btn.value = div.innerHTML;
-            var btnText = document.createTextNode("X");
-            btn.addEventListener('click', deleteItem);
-            btn.appendChild(btnText)
-            div.appendChild(btn);
-            div.appendChild(divText);
-            document.getElementById("listNames").append(div);
-            input.value = " ";
+            if (validInput()) {
+                storage.push(input.value);
+                localStorage.setItem("listStored", JSON.stringify(storage));
+                var div = document.createElement("div");
+                var divText = document.createTextNode(input.value);
+                var btn = document.createElement("button");
+                btn.value = div.innerHTML;
+                var btnText = document.createTextNode("X");
+                btn.addEventListener('click', deleteItem);
+                btn.appendChild(btnText)
+                div.appendChild(btn);
+                div.appendChild(divText);
+                document.getElementById("listNames").append(div);
+                input.value = "";
+            }
         }
         function deleteItem() {
             listArea.removeChild(this.parentNode);

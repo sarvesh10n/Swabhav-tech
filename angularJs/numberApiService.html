@@ -29,7 +29,7 @@
     <script>
 
 
-        angular.module('numberapi', []).controller('numberapiController', function ($scope, dataService) {
+        angular.module('numberapi', []).controller('numberapiController', function ($scope, dataService,[$scope]) {
             $scope.validInput = function () {
                 $scope.valid = true;
                 if ($scope.inputNumber == '')

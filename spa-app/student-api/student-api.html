@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="student-api-app">
+
+<head>
+    <title>student api single page app</title>
+    <link rel="stylesheet" href="../bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular-route.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="controller.js"></script>
+ 
+
+    
+
+</head>
+
+<body>
+
+
+    <div class="container">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Student-api</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#displayStudents">Fetch Data</a>
+                    </li>
+                    <li>
+                        <a href="#addStudent">Add student</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div ng-view>
+
+        </div>
+    </div>
+</body>
+
+</html>
