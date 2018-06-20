@@ -7,6 +7,7 @@ angular.module('student-api-app', ['ngRoute', 'studentApiControllers'])
             .when('/addStudent', { templateUrl: 'partial/addStudent.html', controller: 'AddStudentController' })
             .when('/updateStudent/:rollNo', { templateUrl: 'partial/updateStudent.html', controller: 'UpdateStudentController' })
             .when('/deleteStudent/:rollNo', { template: '', controller: 'DeleteStudentController' })
+            .when('/login', { templateUrl: 'partial/login.html', controller: 'LoginController' })
 
     }])
 
@@ -36,76 +37,184 @@ angular.module('student-api-app')
         }
         return this;
 
+
+
     });
 
 angular.module('student-api-app')
     .service('loginService', function () {
+        var registeredUser = {
+            "sachin": "sachin@123",
+            "sarvesh": "123"
+        }
+        var path = "";
+
+        this.isLogged = function () {
+            if (localStorage.getItem("userName") == null)
+                return false;
+            else
+                return true;
+        }
+
         this.checkLogin = function ($username, $password) {
-        
+            if (registeredUser[$username] == $password)
+                return true;
+        }
+
+        this.setUser = function ($username) {
+            localStorage.setItem("userName", $username);
+        }
+        this.getCurrentUser = function () {
+            return localStorage.getItem("userName");
+        }
+
+        this.setRedirectPath = function ($path) {
+            path = $path;
+        }
+
+        this.getRedirectPath = function () {
+            return path;
+        }
+        this.setCredentials = function ($id, $password) {
+            credential = {
+                "id": $id,
+                "password": $password
+            }
+            localStorage.setItem("credential", JSON.stringify(credential));
+        }
+
+        this.getCredentials = function () {
+            return JSON.parse(localStorage.getItem("credential"));
+        }
+        this.setRemember = function ($value) {
+            localStorage.setItem("isRemember", $value);
+        }
+
+        this.isRemember = function () {
+            if (localStorage.getItem("isRemember")=="true")
+                return true;
+            else
+                return false;
+
         }
     });
 
 angular.module('studentApiControllers', [])
-    .controller('DisplayController', ['$scope', '$log', 'dataService', function ($scope, $log, dataService) {
+    .controller('DisplayController', ['$scope', '$log', 'dataService', 'loginService', function ($scope, $log, dataService, loginService) {
+
         $log.info("Inside display controller");
         dataService.getData().then(function (r) {
             $scope.student = r.data;
         })
+
+        if (loginService.isLogged()) {
+            console.log(loginService.getCurrentUser());
+            $scope.userName = loginService.getCurrentUser();
+            $scope.logoutButton = true;
+        }
     }])
-    .controller('AddStudentController', ['$scope', '$log', 'dataService', function ($scope, $log, dataService) {
+    .controller('AddStudentController', ['$scope', '$log', '$location', 'loginService', 'dataService', function ($scope, $log, $location, loginService, dataService) {
         $log.info("Inside add student controller");
-        $scope.stud;
-        $scope.submit = function () {
-            console.log($scope.stud.isMale);
-            dataService.addStudent($scope.stud).then(function (r) {
-                $scope.studentAdded = true;
-            })
-        }
-
-    }])
-    .controller('UpdateStudentController', ['$scope', '$log', 'dataService', '$routeParams', function ($scope, $log, dataService, $routeParams) {
-        $log.info("Inside update student controller");
-        $log.info($routeParams.rollNo);
-        dataService.fetchSingleStudent($routeParams.rollNo).then(function (r) {
-            $scope.stud = {
-                "rollNo": '',
-                "name": '',
-                "age": '',
-                "email": '',
-                "date": '',
-                "isMale": ''
+        loginService.setRedirectPath($location.path());
+        if (loginService.isLogged()) {
+            $scope.stud;
+            $scope.submit = function () {
+                console.log($scope.stud.isMale);
+                dataService.addStudent($scope.stud).then(function (r) {
+                    $scope.studentAdded = true;
+                })
             }
-            $scope.stud.rollNo = r.data.rollNo;
-            $scope.stud.name = r.data.name;
-            $scope.stud.age = r.data.age;
-            $scope.stud.email = r.data.email;
-            $scope.stud.date = new Date(r.data.date);
-            $scope.stud.isMale = r.data.isMale.toString();
-        })
 
-        $scope.update = function () {
-            dataService.updateStudent($routeParams.rollNo, $scope.stud).then(function (r) {
-                $scope.resetForm();
+        }
+        else {
+            $location.path("/login");
+        }
+    }])
+    .controller('UpdateStudentController', ['$scope', '$log', 'dataService', '$routeParams', '$location', 'loginService', function ($scope, $log, dataService, $routeParams, $location, loginService) {
+        $log.info("Inside update student controller");
+        loginService.setRedirectPath($location.path());
+        if (loginService.isLogged()) {
+            $log.info($routeParams.rollNo);
+            dataService.fetchSingleStudent($routeParams.rollNo).then(function (r) {
+                $scope.stud = {
+                    "rollNo": '',
+                    "name": '',
+                    "age": '',
+                    "email": '',
+                    "date": '',
+                    "isMale": ''
+                }
+                $scope.stud.rollNo = r.data.rollNo;
+                $scope.stud.name = r.data.name;
+                $scope.stud.age = r.data.age;
+                $scope.stud.email = r.data.email;
+                $scope.stud.date = new Date(r.data.date);
+                $scope.stud.isMale = r.data.isMale.toString();
             })
-        }
 
-        $scope.resetForm = function () {
-            $scope.stud.rollNo = "";
-            $scope.stud.name = "";
-            $scope.stud.age = "";
-            $scope.stud.email = "";
-            $scope.stud.date = "";
-            $scope.stud.isMale = "";
+            $scope.update = function () {
+                dataService.updateStudent($routeParams.rollNo, $scope.stud).then(function (r) {
+                    $scope.resetForm();
+                })
+            }
+
+            $scope.resetForm = function () {
+                $scope.stud.rollNo = "";
+                $scope.stud.name = "";
+                $scope.stud.age = "";
+                $scope.stud.email = "";
+                $scope.stud.date = "";
+                $scope.stud.isMale = "";
+            }
+        }
+        else {
+            $location.path("/login");
         }
     }])
-    .controller('DeleteStudentController', ['$scope', '$log', 'dataService', '$routeParams', '$location', function ($scope, $log, dataService, $routeParams, $location) {
+    .controller('DeleteStudentController', ['$scope', '$log', 'dataService', '$routeParams', '$location', 'loginService', function ($scope, $log, dataService, $routeParams, $location, loginService) {
         $log.info("Inside delete student controller");
-        console.log($routeParams.rollNo);
-        dataService.deleteStudent($routeParams.rollNo).then(function (r) {
+        loginService.setRedirectPath($location.path());
+        if (loginService.isLogged()) {
+            console.log($routeParams.rollNo);
+            if (confirm("are you sure you want to delete " + $routeParams.rollNo))
+                dataService.deleteStudent($routeParams.rollNo).then(function (r) {
+                    $location.path("/");
+                })
             $location.path("/");
-        })
+        }
+        else
+            $location.path("/login");
 
     }])
+    .controller('LoginController', ['$scope', '$log', 'loginService', '$location', function ($scope, $log, loginService, $location) {
+        $log.info("inside login controller");
+        if (loginService.isRemember()) {
+            console.log("inside remember me");
+            $scope.loggedIn = true;
+            credential = loginService.getCredentials();
+            $scope.id = credential["id"];
+            $scope.password = credential["password"];
+        }
+        else
+            $scope.loggedIn = false;
+        $scope.check = function () {
+            if (loginService.checkLogin($scope.id, $scope.password)) {
+
+                loginService.setUser($scope.id);
+                loginService.setCredentials($scope.id, $scope.password);
+                console.log(loginService.getRedirectPath());
+                console.log(loginService.getCurrentUser());
+                $location.path(loginService.getRedirectPath());
+                loginService.setRemember($scope.loggedIn);
+
+            }
+            else{
+                
+            }
+        }
+    }])
+
+
 
     .filter('gender', function () {
         return function (item) {

@@ -1,5 +1,4 @@
 <section>
-    <link rel="stylesheet" href="../../bootstrap3/css/bootstrap.css">
 
     <div class="container">
         <class class="form-group">
@@ -13,7 +12,7 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <input type="text" class='form-control' id='id'>
+                    <input type="text" class='form-control' id='id' ng-model='id'>
                 </div>
                 <div class="col-md-2"></div>
             </div>
@@ -27,7 +26,17 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <input type="password" class='form-control' id='password'>
+                    <input type="password" class='form-control' id='password' ng-model='password'>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="loggedIn">Remember logged in</label>
+                    </div>
                 </div>
                 <div class="col-md-2"></div>
             </div>
@@ -35,10 +44,11 @@
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
-                    <button class="btn btn-success btn-lg">login</button>
+                    <button class="btn btn-success btn-lg" ng-click="check()">login</button>
                 </div>
                 <div class="col-md-2"></div>
             </div>
+
 
 
 

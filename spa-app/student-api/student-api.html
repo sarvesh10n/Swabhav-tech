@@ -9,9 +9,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular-route.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="controller.js"></script>
- 
 
-    
+
+
 
 </head>
 
@@ -31,6 +31,14 @@
                     <li>
                         <a href="#addStudent">Add student</a>
                     </li>
+
+
+                    <li>
+                        <div id="userName" style="font-size:30px;color:white">Guest</div>
+                    </li>
+                    <li>
+                        <button class="btn" style="padding:10px" id="logout" onclick="logout()">logout</button>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -39,5 +47,32 @@
         </div>
     </div>
 </body>
+<script>
+    var userName = document.getElementById("userName");
+    window.onload = function (e) {
+        if (localStorage.getItem("userName") == null) {
+            document.getElementById("logout").setAttribute("style", "display:none");
+        }
+        else
+            userName.innerHTML = localStorage.getItem("userName");
+    }
+
+
+    window.onhashchange = function (e) {
+        if (localStorage.getItem("userName") == null) {
+            document.getElementById("logout").setAttribute("style", "display:none");
+        }
+        else {
+            userName.innerHTML = localStorage.getItem("userName");
+            document.getElementById("logout").setAttribute("style", "display:show");
+        }
+    }
+    function logout() {
+        localStorage.removeItem("userName");
+        document.getElementById("logout").setAttribute("style", "display:none");
+        location.replace("http://localhost/spa-app/student-api/student-api.html#/");
+        userName.innerHTML = "Guest";
+    }
+</script>
 
 </html>
