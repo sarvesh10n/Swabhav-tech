@@ -22,7 +22,7 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Student-api</a>
+                    <div class="navbar-brand">Student-api</div>
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="active">
@@ -32,12 +32,16 @@
                         <a href="#addStudent">Add student</a>
                     </li>
 
-
+                </ul>
+                <ul class="nav navbar-nav navbar-right">>
                     <li>
-                        <div id="userName" style="font-size:30px;color:white">Guest</div>
+                        <div id="userName" class="navbar-text" style="color:white" ng-bind="user"></div>
                     </li>
                     <li>
-                        <button class="btn" style="padding:10px" id="logout" onclick="logout()">logout</button>
+                        <button type="button" class="btn btn-danger navbar-btn"  id="logout" ng-click="logout()" ng-show="viewLogout">logout</button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-danger navbar-btn"  id="login" ng-click="login()" ng-show="viewLogin">login</button>
                     </li>
                 </ul>
             </div>
@@ -61,17 +65,12 @@
     window.onhashchange = function (e) {
         if (localStorage.getItem("userName") == null) {
             document.getElementById("logout").setAttribute("style", "display:none");
+            userName.innerHTML="Guest";
         }
         else {
             userName.innerHTML = localStorage.getItem("userName");
             document.getElementById("logout").setAttribute("style", "display:show");
         }
-    }
-    function logout() {
-        localStorage.removeItem("userName");
-        document.getElementById("logout").setAttribute("style", "display:none");
-        location.replace("http://localhost/spa-app/student-api/student-api.html#/");
-        userName.innerHTML = "Guest";
     }
 </script>
 

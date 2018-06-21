@@ -59,6 +59,7 @@ angular.module('student-api-app')
         this.checkLogin = function ($username, $password) {
             if (registeredUser[$username] == $password)
                 return true;
+            return false;
         }
 
         this.setUser = function ($username) {
@@ -186,8 +187,9 @@ angular.module('studentApiControllers', [])
             $location.path("/login");
 
     }])
-    .controller('LoginController', ['$scope', '$log', 'loginService', '$location', function ($scope, $log, loginService, $location) {
+    .controller('LoginController', ['$scope', '$log', 'loginService', '$location','$rootScope', function ($scope, $log, loginService, $location,$rootScope) {
         $log.info("inside login controller");
+        $rootScope.viewLogin=false;
         if (loginService.isRemember()) {
             console.log("inside remember me");
             $scope.loggedIn = true;
@@ -206,6 +208,8 @@ angular.module('studentApiControllers', [])
                 console.log(loginService.getCurrentUser());
                 $location.path(loginService.getRedirectPath());
                 loginService.setRemember($scope.loggedIn);
+                
+                $rootScope.viewLogout=true;
 
             }
             else{
@@ -213,6 +217,31 @@ angular.module('studentApiControllers', [])
             }
         }
     }])
+    
+    .run(function($rootScope,loginService,$location){
+        $rootScope.login=function(){
+            loginService.setRedirectPath($location.path());
+            $location.path("/login");
+        }
+        
+        if(loginService.isLogged()){
+            $rootScope.viewLogin=false;
+            $rootScope.viewLogout=true;
+        }
+        else
+        {
+            $rootScope.viewLogin=true;
+            $rootScope.viewLogout=false;
+        }
+        
+        $rootScope.logout=function(){
+            localStorage.removeItem("userName");
+            $rootScope.viewLogout=false;
+            $rootScope.user="";
+            $location.path("/");
+            $rootScope.viewLogin=true;
+        }
+    })
 
 
 
