@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<package name="main" extends="struts-default">
+		<action name="" class="com.techlabs.actions.DisplayContactAction">
+			<result name="success">
+				views/displayContact.jsp
+			</result>
+		</action>
+
+		<action name="displayList" class="com.techlabs.actions.DisplayContactAction">
+			<result name="success">
+				views/displayContact.jsp
+			</result>
+		</action>
+
+		<action name="addContactPage" class="com.techlabs.actions.AddContactAction">
+			<result name="success">
+				views/addContact.jsp
+			</result>
+			<result name="login">
+				views/login.jsp
+			</result>
+		</action>
+
+		<action name="addSingleContact" class="com.techlabs.actions.AddContactAction"
+			method="addContact">
+			<result type="redirectAction">
+				<param name="actionName">displayList</param>
+			</result>
+		</action>
+
+		<action name="updateContactPage" class="com.techlabs.actions.UpdateContactAction">
+			<result name="success">
+				views/updateContact.jsp
+			</result>
+			<result name="login">
+				views/login.jsp
+			</result>
+		</action>
+
+		<action name="loginPage" class="com.techlabs.actions.LoginAction">
+			<result name="success">
+				views/login.jsp
+			</result>
+		</action>
+
+		<action name="loginValidate" class="com.techlabs.actions.LoginAction"
+			method="validLogin">
+			<result type="redirectAction">
+				<param name="actionName">displayList</param>
+			</result>
+			<result name="error">
+				views/login.jsp
+			</result>
+		</action>
+
+		<action name="updateSingleContact" class="com.techlabs.actions.UpdateContactAction"
+			method="updateContact">
+			<result type="redirectAction">
+				<param name="actionName">displayList</param>
+			</result>
+		</action>
+		
+		<action name="logout" class="com.techlabs.actions.LogoutAction">
+			<result type="redirectAction">
+				<param name="actionName">displayList</param>
+			</result>
+		</action>
+	</package>
+</struts>

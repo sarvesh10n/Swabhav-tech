@@ -1,0 +1,30 @@
+@keyframes containerAnimation{
+    0%{
+        transform: rotate(0) translateY(-30px);
+        opacity: 0;
+        }
+    99%{
+        transform: rotate(0) translateY(0px);
+        opacity: 1;
+        }
+}
+
+#animation{
+    animation: containerAnimation 0.5s forwards 0s linear;
+}
+
+
+@keyframes headerAnimation{
+    0%{
+        transform: rotate(xx) translateX(-20);
+        opacity: 0;
+        }
+    99%{
+        transform: rotate(xx) translateX(0);
+        opacity: 1;
+        }
+}
+
+#headerAnimation{
+    animation: headerAnimation 0.5s forwards 0s linear;
+}

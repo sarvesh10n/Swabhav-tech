@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="main" extends="struts-default">
+
+
+		<action name="" class="com.techlabs.actions.DisplayCartAction">
+			<result name="success">
+				views/displayShoppingCart.jsp
+			</result>
+		</action>
+
+		<action name="displayCart" class="com.techlabs.actions.DisplayCartAction">
+			<result name="success">
+				views/displayShoppingCart.jsp
+			</result>
+		</action>
+
+		<action name="addToCart" class="com.techlabs.actions.DisplayCartAction"
+			method="addToCart">
+			<result type="redirectAction">
+				<param name="actionName">displayCart</param>
+			</result>
+		</action>
+
+		<action name="payment" class="com.techlabs.actions.PaymentAction">
+			<result name="login">
+				views/login.jsp
+			</result>
+			<result name="success">
+				views/paymentPortal.jsp
+			</result>
+		</action>
+
+		<action name="yourOrder" class="com.techlabs.actions.DisplayOrderAction">
+			<result name="success">
+				views/yourOrder.jsp
+			</result>
+		</action>
+
+		<action name="loginPage" class="com.techlabs.actions.LoginAction">
+			<result name="success">
+				views/login.jsp
+			</result>
+		</action>
+
+		<action name="loginValidate" class="com.techlabs.actions.LoginAction"
+			method="validLogin">
+			<result type="redirectAction">
+				<param name="actionName">displayCart</param>
+			</result>
+			<result name="error">
+				views/login.jsp
+			</result>
+		</action>
+		<action name="logout" class="com.techlabs.actions.LogoutAction">
+			<result type="redirectAction">
+				<param name="actionName">displayCart</param>
+			</result>
+		</action>
+	</package>
+</struts>
