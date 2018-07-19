@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<package name="main" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="loginInterceptor"
+				class="com.techlabs.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="loginInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+
+		<global-results>
+			<result type="redirect" name="loginPage">
+				views/login.jsp
+			</result>
+		</global-results>
+
+		<action name="" class="com.techlabs.action.LoginAction">
+			<result name="success">
+				/views/login.jsp
+			</result>
+		</action>
+
+		<action name="displayShoppingCart" class="com.techlabs.action.DisplayCartAction">
+			<interceptor-ref name="loginStack"></interceptor-ref>
+			<result name="success">
+				/views/displayShoppingCart.jsp
+			</result>
+		</action>
+
+		<action name="loginPage" class="com.techlabs.action.LoginAction">
+			<result name="success">
+				/views/login.jsp
+			</result>
+		</action>
+
+		<action name="loginValidate" class="com.techlabs.action.LoginAction"
+			method="validLogin">
+			<result name="login">
+				/views/login.jsp
+			</result>
+			<result type="redirectAction">
+				<param name="actionName">
+					displayShoppingCart
+				</param>
+			</result>
+		</action>
+
+		<action name="logout" class="com.techlabs.action.LogoutAction">
+			<result type="redirectAction">
+				<param name="actionName">loginPage</param>
+			</result>
+		</action>
+
+		<action name="addToCart" class="com.techlabs.action.DisplayCartAction"
+			method="addToCart">
+			<interceptor-ref name="loginStack"></interceptor-ref>
+			<result type="redirectAction">
+				<param name="actionName">
+					displayShoppingCart
+				</param>
+			</result>
+		</action>
+
+		<action name="checkout" class="com.techlabs.action.CheckoutAction">
+		<interceptor-ref name="loginStack"></interceptor-ref>
+			<result name="success">
+				/views/checkout.jsp
+			</result>
+		</action>
+
+		<action name="deleteItem" class="com.techlabs.action.DeleteItemAction">
+			<result type="redirectAction">
+				<param name="actionName">
+					displayShoppingCart
+				</param>
+			</result>
+		</action>
+
+	</package>
+
+	<package name="default" extends="json-default" namespace="/">
+		<action name="getCurrentCost" class="com.techlabs.action.DisplayCartAction"
+			method="getCurrentCost">
+			<result name="success" type="json">
+				/views/displayShoppingCart.jsp
+			</result>
+		</action>
+	</package>
+</struts>

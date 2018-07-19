@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<package name="main" extends="struts-default">
+		<action name="" class="com.techlabs.action.DisplayListAction">
+			<result name="success">
+				/views/displayStudentDetail.jsp
+			</result>
+		</action>
+
+		<action name="displayList" class="com.techlabs.action.DisplayListAction">
+			<result name="success">
+				/views/displayStudentDetail.jsp
+			</result>
+		</action>
+
+		<action name="addStudentPage" class="com.techlabs.action.AddStudentAction">
+			<result name="success">
+				views/addStudent.jsp
+			</result>
+		</action>
+
+		<action name="addSingleStudent" class="com.techlabs.action.AddStudentAction"
+			method="addStudent">
+			<result type="redirectAction">
+				<param name="actionName">displayList</param>
+			</result>
+		</action>
+
+		<action name="updateStudentPage" class="com.techlabs.action.UpdateStudentAction">
+			<result name="success">
+				views/updateStudent.jsp
+			</result>
+		</action>
+
+		<action name="updateSingleStudent" class="com.techlabs.action.UpdateStudentAction"
+			method="updateStudent">
+			<result type="redirectAction">
+				<param name="actionName">displayList</param>
+			</result>
+		</action>
+		<action name="deleteStudent" class="com.techlabs.action.DeleteStudentAction">
+			<result type="redirectAction">
+				<param name="actionName">displayList</param>
+			</result>
+		</action>
+	</package>
+</struts>

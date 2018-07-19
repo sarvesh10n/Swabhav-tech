@@ -17,7 +17,6 @@ public class LoginDataStore {
 
 	public static boolean validUser(String userName, String password)
 			throws SQLException {
-
 		String query = "select * from login where username=? and password=?";
 		PreparedStatement preparedStatement = (PreparedStatement) conn
 				.prepareStatement(query);

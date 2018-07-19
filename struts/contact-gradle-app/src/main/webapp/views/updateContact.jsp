@@ -22,7 +22,7 @@
 
 	<div class="container">
 		<center>
-			<h2>Add contact</h2>
+			<h2>Update contact</h2>
 			<s:form action="updateSingleContact" method="post" id="myform">
 				<div class="input-field">
 					<s:textfield id="Name" type="text" class="validate"

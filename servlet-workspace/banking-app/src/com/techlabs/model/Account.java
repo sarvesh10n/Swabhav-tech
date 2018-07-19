@@ -19,6 +19,4 @@ public class Account {
 	public String getBalance() {
 		return balance;
 	}
-	
-	
 }

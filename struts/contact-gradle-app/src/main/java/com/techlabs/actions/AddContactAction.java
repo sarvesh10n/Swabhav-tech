@@ -18,7 +18,6 @@ public class AddContactAction extends ActionSupport implements SessionAware{
 		loginSession=session;
 		
 	}
-
 	public Contact getContact() {
 		return contact;
 	}

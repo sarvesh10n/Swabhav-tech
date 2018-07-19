@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<package name="main" extends="struts-default">
+
+		<interceptors>
+			<interceptor name="loginInterceptor"
+				class="com.techlabs.interceptor.LoginInterceptor"></interceptor>
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="loginInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+
+		<global-results>
+			<result type="redirect" name="loginPage">
+				views/login.jsp
+			</result>
+		</global-results>
+
+		<action name="" class="com.techlabs.action.LoginAction">
+			<result name="success">
+				/views/login.jsp
+			</result>
+		</action>
+
+		<action name="displayPassbook" class="com.techlabs.action.DisplayPassbookAction">
+			<interceptor-ref name="loginStack"></interceptor-ref>
+			<result name="success">
+				/views/displayPassbook.jsp
+			</result>
+		</action>
+
+		<action name="register" class="com.techlabs.action.RegisterAction">
+			<result name="success">
+				views/register.jsp
+			</result>
+		</action>
+
+		<action name="registerUser" class="com.techlabs.action.RegisterAction"
+			method="registerUser">
+			<result name="register">
+				views/register.jsp
+			</result>
+			<result type="redirectAction">
+				<param name="actionName">
+					login
+				</param>
+			</result>
+		</action>
+
+
+		<action name="login" class="com.techlabs.action.LoginAction">
+			<result name="success">
+				views/login.jsp
+			</result>
+		</action>
+
+		<action name="loginValidate" class="com.techlabs.action.LoginAction"
+			method="validUser">
+			<result name="login">
+				views/login.jsp
+			</result>
+
+			<result name="admin" type="redirectAction">
+				<param name="actionName">
+					admin
+				</param>
+			</result>
+			<result type="redirectAction">
+				<param name="actionName">
+					displayPassbook
+				</param>
+			</result>
+		</action>
+
+		<action name="logout" class="com.techlabs.action.LogoutAction">
+			<result type="redirectAction">
+				<param name="actionName">login</param>
+			</result>
+		</action>
+
+		<action name="withdrawDepositPage" class="com.techlabs.action.WithdrawDepositAction">
+			<interceptor-ref name="loginStack"></interceptor-ref>
+			<result name="success">
+				views/withdrawDeposit.jsp
+			</result>
+
+		</action>
+		<action name="withdrawDeposit" class="com.techlabs.action.WithdrawDepositAction"
+			method="withdrawDeposit">
+			<interceptor-ref name="loginStack"></interceptor-ref>
+			<result type="redirectAction">
+				<param name="actionName">
+					displayPassbook
+				</param>
+			</result>
+			<result name="error">
+				views/withdrawDeposit.jsp
+			</result>
+		</action>
+
+		<action name="admin" class="com.techlabs.action.AdminAction">
+			<interceptor-ref name="loginStack"></interceptor-ref>
+			<result name="success">
+				views/admin.jsp
+			</result>
+		</action>
+
+		<action name="updateStatus" class="com.techlabs.action.AdminAction"
+			method="updateStatus">
+			<interceptor-ref name="loginStack"></interceptor-ref>
+			<result type="redirectAction">
+				<param name="actionName">admin</param>
+			</result>
+		</action>
+	</package>
+	
+	<package name="default" extends="json-default" namespace="/">
+		<action name="checkName" class="com.techlabs.action.RegisterAction"
+			method="checkName">
+			<result name="success" type="json">
+				/views/register.jsp
+			</result>
+		</action>
+	</package>
+</struts>

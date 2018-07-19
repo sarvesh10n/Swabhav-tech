@@ -15,8 +15,8 @@ public class Customer {
 	@Id
 	private int customerId;
 	private String name;
-	
-	@OneToMany(mappedBy="customer",cascade=CascadeType.ALL)
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private Set<Order> orders = new HashSet<Order>();
 
 	public void addOrder(Order order) {
@@ -47,5 +47,4 @@ public class Customer {
 		this.orders = orders;
 	}
 
-	
 }

@@ -74,7 +74,6 @@ public class DisplayCartAction implements Action {
 	}
 
 	public String addToCart() {
-
 		Product product = productService.getProduct(selected);
 		lineItem = new LineItem();
 		lineItem.setProduct(product);
